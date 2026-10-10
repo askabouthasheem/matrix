@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { CheckoutModal } from '@/components/checkout/CheckoutModal';
+import { SafeImage } from '@/components/common/SafeImage';
 
 function ChatContent() {
   const searchParams = useSearchParams();
@@ -143,7 +144,7 @@ function ChatContent() {
                   <div className="flex items-center gap-2">
                     {activeConv.listingImage && (
                       <div className="relative w-8 h-8 rounded overflow-hidden shrink-0">
-                        <Image src={activeConv.listingImage} alt="item" fill className="object-cover" />
+                        <SafeImage src={activeConv.listingImage} alt="item" fill className="object-cover" />
                       </div>
                     )}
                     <div>

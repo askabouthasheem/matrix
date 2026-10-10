@@ -13,7 +13,7 @@ export interface Category {
   id: string;
   name: string;
   slug: string;
-  icon: string;
+  iconName: 'Smartphone' | 'Shirt' | 'Sparkles' | 'Utensils' | 'Briefcase' | 'GraduationCap' | 'Home';
   description: string;
 }
 
@@ -147,7 +147,7 @@ export const SCHOOLS: School[] = [
     state: "Lagos",
     emailDomain: "unilag.edu.ng",
     activeSellersCount: 342,
-    logo: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=150&auto=format&fit=crop&q=80"
+    logo: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=300&auto=format&fit=crop&q=80"
   },
   {
     id: "sch_lasu",
@@ -157,7 +157,7 @@ export const SCHOOLS: School[] = [
     state: "Lagos",
     emailDomain: "lasu.edu.ng",
     activeSellersCount: 218,
-    logo: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=150&auto=format&fit=crop&q=80"
+    logo: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&auto=format&fit=crop&q=80"
   },
   {
     id: "sch_ui",
@@ -167,7 +167,7 @@ export const SCHOOLS: School[] = [
     state: "Oyo",
     emailDomain: "ui.edu.ng",
     activeSellersCount: 185,
-    logo: "https://images.unsplash.com/photo-1562774053-701939374585?w=150&auto=format&fit=crop&q=80"
+    logo: "https://images.unsplash.com/photo-1562774053-701939374585?w=300&auto=format&fit=crop&q=80"
   },
   {
     id: "sch_uniosun",
@@ -177,7 +177,7 @@ export const SCHOOLS: School[] = [
     state: "Osun",
     emailDomain: "uniosun.edu.ng",
     activeSellersCount: 94,
-    logo: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=150&auto=format&fit=crop&q=80"
+    logo: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=300&auto=format&fit=crop&q=80"
   },
   {
     id: "sch_fountain",
@@ -187,7 +187,7 @@ export const SCHOOLS: School[] = [
     state: "Osun",
     emailDomain: "fountain.edu.ng",
     activeSellersCount: 62,
-    logo: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=150&auto=format&fit=crop&q=80"
+    logo: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=300&auto=format&fit=crop&q=80"
   }
 ];
 
@@ -196,49 +196,49 @@ export const CATEGORIES: Category[] = [
     id: "cat_tech",
     name: "Gadgets & Tech",
     slug: "gadgets-tech",
-    icon: "Smartphone",
+    iconName: "Smartphone",
     description: "Phones, powerbanks, airpods, chargers & laptops"
   },
   {
     id: "cat_fashion",
     name: "Fashion & Thrift",
     slug: "fashion-thrift",
-    icon: "Shirt",
+    iconName: "Shirt",
     description: "Campus drip, Senegalese wear, sneakers & vintage finds"
   },
   {
     id: "cat_beauty",
     name: "Beauty & Hair",
     slug: "beauty-hair",
-    icon: "Sparkles",
+    iconName: "Sparkles",
     description: "Braid installs, skincare, wigs, lashes & perfumes"
   },
   {
     id: "cat_food",
     name: "Food & Pastries",
     slug: "food-pastries",
-    icon: "Utensils",
+    iconName: "Utensils",
     description: "Hostel parfait, small chops, cakes & fresh meal prep"
   },
   {
     id: "cat_services",
     name: "Campus Services",
     slug: "campus-services",
-    icon: "Briefcase",
+    iconName: "Briefcase",
     description: "Graphics design, video editing, laundry & tech help"
   },
   {
     id: "cat_trainings",
     name: "Trainings & Skills",
     slug: "trainings-skills",
-    icon: "GraduationCap",
+    iconName: "GraduationCap",
     description: "UI/UX, Coding, Hair braiding & Forex bootcamps"
   },
   {
     id: "cat_hostel",
     name: "Hostel Essentials",
     slug: "hostel-essentials",
-    icon: "Home",
+    iconName: "Home",
     description: "Rechargeable fans, mirrors, lamps & bedding"
   }
 ];

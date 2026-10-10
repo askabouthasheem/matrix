@@ -14,13 +14,14 @@ import {
   Sparkles, 
   ShieldCheck, 
   ChevronDown, 
-  Menu, 
-  X,
   Store,
   SlidersHorizontal,
   LogOut,
   Moon,
-  Sun
+  Sun,
+  PlusCircle,
+  Package,
+  Settings
 } from 'lucide-react';
 import { useApp, UserRole } from '@/context/AppContext';
 import { SCHOOLS } from '@/lib/mockData';
@@ -47,7 +48,6 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
   const [isSchoolMenuOpen, setIsSchoolMenuOpen] = useState(false);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,61 +60,65 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-surface-darkCard/95 backdrop-blur-md border-b border-surface-border dark:border-surface-darkBorder">
-      {/* Top Banner for Campus Safety */}
-      <div className="bg-brand-900 text-white text-[11px] sm:text-xs py-1.5 px-4 font-medium flex items-center justify-between">
+      {/* Top Bar for Role Switching & Escrow Safety */}
+      <div className="bg-brand-900 text-white text-[11px] sm:text-xs py-1.5 px-4 font-medium">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-3.5 h-3.5 text-accent-400" />
-            <span>Campus-First Escrow Protection: Funds held safe with Paystack until pickup is confirmed.</span>
+            <span className="hidden sm:inline">Paystack Escrow Protection: Funds held safe until campus pickup is confirmed.</span>
+            <span className="sm:hidden font-bold">Escrow Protected Campus Market</span>
           </div>
-          <div className="hidden md:flex items-center gap-4 text-stone-300">
-            <span>Role Switcher (Demo):</span>
-            <button 
-              onClick={() => loginAs('BUYER')} 
-              className={`px-2 py-0.5 rounded ${user?.role === 'BUYER' ? 'bg-accent-500 text-white font-bold' : 'hover:text-white'}`}
-            >
-              Buyer
-            </button>
-            <button 
-              onClick={() => loginAs('SELLER')} 
-              className={`px-2 py-0.5 rounded ${user?.role === 'SELLER' ? 'bg-accent-500 text-white font-bold' : 'hover:text-white'}`}
-            >
-              Seller Dashboard
-            </button>
-            <button 
-              onClick={() => loginAs('ADMIN')} 
-              className={`px-2 py-0.5 rounded ${user?.role === 'ADMIN' ? 'bg-accent-500 text-white font-bold' : 'hover:text-white'}`}
-            >
-              Admin
-            </button>
+
+          {/* Meaningful Role Switcher */}
+          <div className="flex items-center gap-2 text-stone-300">
+            <span className="hidden md:inline text-[11px] text-stone-400">Current Role:</span>
+            <div className="flex items-center bg-black/30 p-0.5 rounded-md border border-white/10">
+              <button 
+                onClick={() => loginAs('BUYER')} 
+                className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all ${user?.role === 'BUYER' ? 'bg-accent-500 text-white shadow-sm' : 'text-stone-300 hover:text-white'}`}
+              >
+                Buyer
+              </button>
+              <button 
+                onClick={() => loginAs('SELLER')} 
+                className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all ${user?.role === 'SELLER' ? 'bg-accent-500 text-white shadow-sm' : 'text-stone-300 hover:text-white'}`}
+              >
+                Seller
+              </button>
+              <button 
+                onClick={() => loginAs('ADMIN')} 
+                className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all ${user?.role === 'ADMIN' ? 'bg-rose-600 text-white shadow-sm' : 'text-stone-300 hover:text-white'}`}
+              >
+                Admin
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-6">
-        {/* Brand Logo & Campus Selector */}
-        <div className="flex items-center gap-3 sm:gap-6">
+        {/* Brand Logo & Campus Switcher */}
+        <div className="flex items-center gap-3 sm:gap-5">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-900 via-brand-700 to-accent-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-900 via-brand-800 to-accent-500 flex items-center justify-center text-white font-black text-lg shadow-subtle group-hover:scale-105 transition-transform">
               C
             </div>
             <div className="flex flex-col">
-              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-brand-900 dark:text-stone-100 flex items-center gap-1">
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-stone-900 dark:text-stone-100 flex items-center gap-1 leading-none">
                 CampusHustle
-                <span className="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></span>
               </span>
-              <span className="text-[10px] font-semibold text-stone-500 dark:text-stone-400 tracking-wider uppercase">
+              <span className="text-[10px] font-bold text-accent-500 tracking-wider uppercase mt-0.5">
                 {selectedSchool} Market
               </span>
             </div>
           </Link>
 
-          {/* School Switcher Dropdown */}
+          {/* Campus Switcher Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsSchoolMenuOpen(!isSchoolMenuOpen)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-button bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors border border-stone-200 dark:border-stone-700"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-button bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-bold hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors border border-stone-200/80 dark:border-stone-700"
             >
               <Building2 className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
               <span>{activeSchoolObj.shortName}</span>
@@ -122,9 +126,9 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
             </button>
 
             {isSchoolMenuOpen && (
-              <div className="absolute left-0 mt-2 w-56 bg-white dark:bg-stone-900 rounded-card shadow-modal border border-stone-200 dark:border-stone-800 py-2 z-50 animate-in fade-in slide-in-from-top-2">
-                <div className="px-3 py-1.5 text-[11px] font-bold text-stone-400 uppercase tracking-wider">
-                  Select Your Campus
+              <div className="absolute left-0 mt-2 w-56 bg-white dark:bg-stone-900 rounded-card shadow-modal border border-stone-200 dark:border-stone-800 py-2 z-50">
+                <div className="px-3 py-1 text-[10px] font-extrabold text-stone-400 uppercase tracking-wider">
+                  Select University Campus
                 </div>
                 {SCHOOLS.map(sch => (
                   <button
@@ -144,20 +148,64 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
           </div>
         </div>
 
+        {/* Dynamic Navigation Links based on active Role */}
+        <div className="hidden lg:flex items-center gap-5 text-xs font-bold text-stone-700 dark:text-stone-300">
+          {user?.role === 'SELLER' ? (
+            <>
+              <Link href="/seller/dashboard" className={`hover:text-brand-600 transition-colors flex items-center gap-1.5 ${pathname === '/seller/dashboard' ? 'text-brand-600 font-black' : ''}`}>
+                <Store className="w-4 h-4 text-brand-600" /> Dashboard Overview
+              </Link>
+              <Link href="/seller/listings" className={`hover:text-brand-600 transition-colors flex items-center gap-1.5 ${pathname === '/seller/listings' ? 'text-brand-600 font-black' : ''}`}>
+                <Package className="w-4 h-4 text-brand-600" /> My Store Items
+              </Link>
+              <Link href="/seller/orders" className={`hover:text-brand-600 transition-colors flex items-center gap-1.5 ${pathname === '/seller/orders' ? 'text-brand-600 font-black' : ''}`}>
+                <ShoppingBag className="w-4 h-4 text-brand-600" /> Received Orders
+              </Link>
+              <Link href="/seller/listings/new" className="px-3 py-1.5 rounded-button bg-accent-500 hover:bg-accent-600 text-white font-extrabold flex items-center gap-1 shadow-sm">
+                <PlusCircle className="w-3.5 h-3.5" /> Post Item
+              </Link>
+            </>
+          ) : user?.role === 'ADMIN' ? (
+            <>
+              <Link href="/admin/dashboard" className={`hover:text-rose-600 transition-colors flex items-center gap-1.5 ${pathname === '/admin/dashboard' ? 'text-rose-600 font-black' : ''}`}>
+                <SlidersHorizontal className="w-4 h-4 text-rose-600" /> Moderation Overview
+              </Link>
+              <Link href="/admin/applications" className={`hover:text-rose-600 transition-colors flex items-center gap-1.5 ${pathname === '/admin/applications' ? 'text-rose-600 font-black' : ''}`}>
+                <ShieldCheck className="w-4 h-4 text-rose-600" /> Vendor Approvals
+              </Link>
+              <Link href="/admin/listings" className={`hover:text-rose-600 transition-colors flex items-center gap-1.5 ${pathname === '/admin/listings' ? 'text-rose-600 font-black' : ''}`}>
+                <Package className="w-4 h-4 text-rose-600" /> Moderate Listings
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/search" className={`hover:text-brand-600 transition-colors ${pathname === '/search' ? 'text-brand-600 font-black' : ''}`}>
+                Explore Campus Market
+              </Link>
+              <Link href="/how-it-works" className={`hover:text-brand-600 transition-colors ${pathname === '/how-it-works' ? 'text-brand-600 font-black' : ''}`}>
+                How Escrow Works
+              </Link>
+              <Link href="/seller/onboarding" className="text-accent-600 hover:text-accent-700 font-extrabold flex items-center gap-1">
+                <Store className="w-3.5 h-3.5" /> Sell on Campus
+              </Link>
+            </>
+          )}
+        </div>
+
         {/* Desktop Search Bar */}
-        <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md relative">
+        <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xs relative">
           <input
             type="text"
-            placeholder={`Search ${selectedSchool} products, braids, laptops...`}
+            placeholder={`Search ${selectedSchool}...`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-button bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs placeholder:text-stone-400 border border-stone-200 dark:border-stone-700 focus:outline-none focus:ring-2 focus:ring-brand-600/30 focus:border-brand-600 transition-all"
+            className="w-full pl-8 pr-3 py-1.5 rounded-button bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs placeholder:text-stone-400 border border-stone-200 dark:border-stone-700 focus:outline-none focus:ring-2 focus:ring-brand-600/30"
           />
-          <Search className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
+          <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
         </form>
 
-        {/* Navigation Actions */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Header Right Actions */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Notifications */}
           <div className="relative">
             <button
@@ -168,12 +216,9 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
               className="p-2 rounded-full text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors relative"
               aria-label="Notifications"
             >
-              <Bell className="w-5 h-5" />
+              <Bell className="w-4.5 h-4.5" />
               {unreadNotificationCount > 0 && (
-                <span className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-accent-500 ring-2 ring-white dark:ring-stone-900 animate-ping"></span>
-              )}
-              {unreadNotificationCount > 0 && (
-                <span className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-accent-500"></span>
+                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-accent-500"></span>
               )}
             </button>
 
@@ -207,9 +252,9 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
             className="p-2 rounded-full text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors relative"
             aria-label="Wishlist"
           >
-            <Heart className="w-5 h-5" />
+            <Heart className="w-4.5 h-4.5" />
             {wishlist.length > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">
+              <span className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center">
                 {wishlist.length}
               </span>
             )}
@@ -221,7 +266,7 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
             className="p-2 rounded-full text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
             aria-label="Chat messages"
           >
-            <MessageCircle className="w-5 h-5" />
+            <MessageCircle className="w-4.5 h-4.5" />
           </Link>
 
           {/* Cart Icon */}
@@ -230,43 +275,34 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
             className="p-2 rounded-full text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors relative"
             aria-label="Shopping Cart"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <ShoppingBag className="w-4.5 h-4.5" />
             {cart.length > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-brand-900 text-white text-[10px] font-bold flex items-center justify-center px-1">
+              <span className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-brand-900 text-white text-[9px] font-bold flex items-center justify-center">
                 {cart.length}
               </span>
             )}
           </button>
 
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="hidden sm:flex p-2 rounded-full text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
-            aria-label="Toggle Theme"
-          >
-            {isDarkMode ? <Sun className="w-5 h-5 text-amber-400" /> : <Moon className="w-5 h-5" />}
-          </button>
-
-          {/* User Profile / Dashboard Menu */}
-          <div className="relative hidden sm:block">
+          {/* User Account Menu */}
+          <div className="relative">
             {user ? (
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center gap-2 p-1 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors"
+                className="flex items-center gap-1.5 p-1 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors"
               >
                 <img
                   src={user.avatar}
                   alt={user.name}
                   className="w-7 h-7 rounded-full object-cover"
                 />
-                <span className="text-xs font-semibold text-stone-800 dark:text-stone-200 pr-1">
+                <span className="text-xs font-bold text-stone-800 dark:text-stone-200 pr-1 hidden sm:inline">
                   {user.name.split(' ')[0]}
                 </span>
               </button>
             ) : (
               <Link
                 href="/login"
-                className="px-4 py-2 rounded-button bg-brand-900 text-white text-xs font-bold hover:bg-brand-800 transition-colors"
+                className="px-3.5 py-1.5 rounded-button bg-brand-900 text-white text-xs font-extrabold hover:bg-brand-800 transition-colors"
               >
                 Sign In
               </Link>
@@ -277,7 +313,7 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
                 <div className="px-4 py-2 border-b border-stone-100 dark:border-stone-800">
                   <div className="font-bold text-xs text-stone-900 dark:text-stone-100">{user.name}</div>
                   <div className="text-[11px] text-stone-400">{user.email}</div>
-                  <div className="mt-1">
+                  <div className="mt-1 flex items-center gap-1">
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-50 text-brand-800 dark:bg-brand-950 dark:text-brand-300">
                       Role: {user.role}
                     </span>
@@ -292,25 +328,21 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
                   <ShoppingBag className="w-4 h-4 text-stone-400" /> My Orders & Bookings
                 </Link>
 
-                {user.role === 'SELLER' && (
-                  <Link
-                    href="/seller/dashboard"
-                    onClick={() => setIsUserMenuOpen(false)}
-                    className="px-4 py-2 text-xs text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 flex items-center gap-2 font-semibold text-brand-600"
-                  >
-                    <Store className="w-4 h-4 text-brand-600" /> Seller Dashboard
-                  </Link>
-                )}
+                <Link
+                  href="/seller/dashboard"
+                  onClick={() => setIsUserMenuOpen(false)}
+                  className="px-4 py-2 text-xs text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 flex items-center gap-2 font-semibold text-brand-600"
+                >
+                  <Store className="w-4 h-4 text-brand-600" /> Seller Dashboard
+                </Link>
 
-                {user.role === 'ADMIN' && (
-                  <Link
-                    href="/admin/dashboard"
-                    onClick={() => setIsUserMenuOpen(false)}
-                    className="px-4 py-2 text-xs text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 flex items-center gap-2 font-semibold text-rose-600"
-                  >
-                    <SlidersHorizontal className="w-4 h-4 text-rose-600" /> Admin Dashboard
-                  </Link>
-                )}
+                <Link
+                  href="/admin/dashboard"
+                  onClick={() => setIsUserMenuOpen(false)}
+                  className="px-4 py-2 text-xs text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 flex items-center gap-2 font-semibold text-rose-600"
+                >
+                  <SlidersHorizontal className="w-4 h-4 text-rose-600" /> Admin Dashboard
+                </Link>
 
                 <Link
                   href="/profile"
@@ -335,20 +367,6 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
             )}
           </div>
         </div>
-      </div>
-
-      {/* Mobile Search Bar Row */}
-      <div className="px-4 pb-2.5 md:hidden">
-        <form onSubmit={handleSearch} className="relative w-full">
-          <input
-            type="text"
-            placeholder={`Search ${selectedSchool} products & services...`}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-button bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs placeholder:text-stone-400 border border-stone-200 dark:border-stone-700 focus:outline-none"
-          />
-          <Search className="w-4 h-4 text-stone-400 absolute left-3 top-2.5" />
-        </form>
       </div>
     </header>
   );
