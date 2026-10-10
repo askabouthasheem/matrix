@@ -3,368 +3,233 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
-  Zap, 
-  ShieldCheck, 
-  Building2, 
   ArrowRight, 
+  Search, 
+  ShieldCheck, 
   Star, 
-  Clock, 
-  CheckCircle2, 
-  Store,
-  ChevronRight,
-  Smartphone,
-  Shirt,
-  Sparkles,
-  Utensils,
-  Briefcase,
-  GraduationCap,
+  Smartphone, 
+  Shirt, 
+  Sparkles, 
+  Utensils, 
+  Briefcase, 
+  GraduationCap, 
   Home as HomeIcon,
-  SlidersHorizontal,
-  Lock
+  CheckCircle2,
+  ChevronRight
 } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { CATEGORIES, SCHOOLS, BRANDS, Category } from '@/lib/mockData';
 import { ListingCard } from '@/components/common/ListingCard';
-import { VerifiedBadge, EscrowBadge, TrustScoreRing } from '@/components/common/VerifiedBadge';
 import { SafeImage } from '@/components/common/SafeImage';
 
 export default function HomePage() {
-  const { listings, selectedSchool, setSelectedSchool, user } = useApp();
+  const { listings, selectedSchool, setSelectedSchool } = useApp();
   
-  const [activeTab, setActiveTab] = useState<'ALL' | 'PRODUCT' | 'SERVICE' | 'TRAINING'>('ALL');
-  const [availableTodayOnly, setAvailableTodayOnly] = useState(false);
-  const [under10kOnly, setUnder10kOnly] = useState(false);
+  const [activeTab, setActiveTab] = useState<'ALL' | 'PRODUCT' | 'SERVICE' | 'TODAY'>('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Filter listings based on campus and tabs
   const filteredListings = listings.filter(l => {
     if (selectedSchool !== 'ALL' && l.schoolShortName !== selectedSchool) return false;
-    if (activeTab !== 'ALL' && l.type !== activeTab) return false;
-    if (availableTodayOnly && !l.isAvailableToday) return false;
-    if (under10kOnly && l.price > 10000) return false;
+    if (activeTab === 'PRODUCT' && l.type !== 'PRODUCT') return false;
+    if (activeTab === 'SERVICE' && l.type !== 'SERVICE') return false;
+    if (activeTab === 'TODAY' && !l.isAvailableToday) return false;
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      return l.title.toLowerCase().includes(q) || l.description.toLowerCase().includes(q) || l.brandName.toLowerCase().includes(q);
+    }
     return true;
   });
 
-  const availableTodayCount = listings.filter(l => l.isAvailableToday && (selectedSchool === 'ALL' || l.schoolShortName === selectedSchool)).length;
   const currentSchoolObj = SCHOOLS.find(s => s.shortName === selectedSchool) || SCHOOLS[0];
   const campusBrands = BRANDS.filter(b => selectedSchool === 'ALL' || b.schoolShortName === selectedSchool);
 
-  // Distinct category icon helper
   const getCategoryIcon = (iconName: Category['iconName']) => {
     switch (iconName) {
       case 'Smartphone':
-        return <Smartphone className="w-5 h-5 text-brand-600 dark:text-brand-300" />;
+        return <Smartphone className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
       case 'Shirt':
-        return <Shirt className="w-5 h-5 text-indigo-600 dark:text-indigo-300" />;
+        return <Shirt className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
       case 'Sparkles':
-        return <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-300" />;
+        return <Sparkles className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
       case 'Utensils':
-        return <Utensils className="w-5 h-5 text-amber-600 dark:text-amber-300" />;
+        return <Utensils className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
       case 'Briefcase':
-        return <Briefcase className="w-5 h-5 text-teal-600 dark:text-teal-300" />;
+        return <Briefcase className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
       case 'GraduationCap':
-        return <GraduationCap className="w-5 h-5 text-sky-600 dark:text-sky-300" />;
+        return <GraduationCap className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
       case 'Home':
-        return <HomeIcon className="w-5 h-5 text-emerald-600 dark:text-emerald-300" />;
+        return <HomeIcon className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
       default:
-        return <Sparkles className="w-5 h-5 text-brand-600" />;
+        return <Sparkles className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
     }
   };
 
   return (
-    <div className="space-y-12 pb-16">
-      {/* Hero Section: Intentional, Asymmetrical & Restrained */}
-      <section className="relative bg-gradient-to-b from-brand-950 via-brand-900 to-surface-light dark:to-surface-dark text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Subtle Ambient Lighting */}
-        <div className="absolute top-1/4 right-10 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-600/15 rounded-full blur-3xl pointer-events-none" />
+    <div className="space-y-24 pb-28">
+      {/* 1. Hero Section: Open, Calm, Spacious & Confident */}
+      <section className="pt-20 pb-14 px-4 sm:px-6 lg:px-8 border-b border-stone-200/50 dark:border-stone-800/50 bg-gradient-to-b from-stone-50/60 to-transparent dark:from-stone-900/20">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          {/* Subtle Trust Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span>Campus escrow protection • Verified student IDs</span>
+          </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            {/* Left 7-Cols: Confident Asymmetric Typography */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-accent-300 backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Verified Nigerian Campus Marketplace</span>
+          {/* Calm, Strong Headline */}
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-stone-900 dark:text-stone-50 leading-[1.12]">
+            Trade safely on campus. <br className="hidden sm:inline" />
+            Without the WhatsApp chaos.
+          </h1>
+
+          {/* Generous Subtext */}
+          <p className="text-base sm:text-lg text-stone-600 dark:text-stone-300 max-w-2xl mx-auto leading-relaxed font-normal">
+            A trusted marketplace for <strong className="text-stone-900 dark:text-stone-100 font-semibold">{currentSchoolObj.name}</strong> students. Buy tech, book beauty services, and order food directly from verified peers.
+          </p>
+
+          {/* Clean Integrated Search & Campus Bar */}
+          <div className="max-w-2xl mx-auto pt-2">
+            <div className="flex items-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm p-1.5 focus-within:border-stone-400 dark:focus-within:border-stone-600 transition-colors">
+              <div className="pl-3 text-stone-400">
+                <Search className="w-5 h-5" />
               </div>
-
-              <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-black tracking-tight leading-[1.12]">
-                Trade Safely on Campus. <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-amber-300 to-emerald-400">
-                  Zero WhatsApp Chaos.
-                </span>
-              </h1>
-
-              <p className="text-sm sm:text-base text-stone-300 max-w-xl font-normal leading-relaxed">
-                Connect directly with verified student entrepreneurs at <strong className="text-white underline decoration-accent-500 underline-offset-4">{currentSchoolObj.name}</strong>. Buy laptops, book braids, or order parfait with 100% Paystack Escrow protection.
-              </p>
-
-              {/* Campus Selector Pills */}
-              <div className="pt-1">
-                <div className="text-[11px] font-extrabold text-stone-400 uppercase tracking-wider mb-2">
-                  Select Campus Discovery Feed:
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {SCHOOLS.map(sch => (
-                    <button
-                      key={sch.id}
-                      onClick={() => setSelectedSchool(sch.shortName)}
-                      className={`px-3 py-1.5 rounded-button text-xs font-bold transition-all flex items-center gap-1.5 ${
-                        selectedSchool === sch.shortName
-                          ? 'bg-accent-500 text-white shadow-subtle ring-2 ring-accent-400/40'
-                          : 'bg-white/10 hover:bg-white/20 text-stone-200 border border-white/10'
-                      }`}
-                    >
-                      <Building2 className="w-3.5 h-3.5" />
-                      {sch.shortName}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/search"
-                  className="px-6 py-3.5 rounded-button bg-accent-500 hover:bg-accent-600 text-white font-extrabold text-xs sm:text-sm shadow-subtle transition-all flex items-center gap-2"
-                >
-                  <span>Explore {selectedSchool} Deals</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  href={user?.role === 'SELLER' ? '/seller/dashboard' : '/seller/onboarding'}
-                  className="px-5 py-3.5 rounded-button bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 backdrop-blur-sm transition-all flex items-center gap-2"
-                >
-                  <Store className="w-4 h-4 text-accent-400" />
-                  <span>{user?.role === 'SELLER' ? 'Go to Seller Dashboard' : 'Become a Verified Seller'}</span>
-                </Link>
-              </div>
-
-              {/* Escrow Trust Micro-Bar */}
-              <div className="pt-2 flex items-center gap-5 text-xs text-stone-300">
-                <span className="flex items-center gap-1.5 font-medium">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" /> Escrow Protected Funds
-                </span>
-                <span className="flex items-center gap-1.5 font-medium">
-                  <CheckCircle2 className="w-4 h-4 text-accent-400" /> .edu.ng Verified Students
-                </span>
-              </div>
+              <input
+                type="text"
+                placeholder={`Search powerbanks, braiding, laptops at ${selectedSchool}...`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 px-3 py-2.5 bg-transparent text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 focus:outline-none"
+              />
+              <Link
+                href={`/search?q=${encodeURIComponent(searchQuery)}`}
+                className="px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-900 text-xs font-semibold transition-colors shrink-0"
+              >
+                Search
+              </Link>
             </div>
 
-            {/* Right 5-Cols: Soft Native Campus Snapshot Card */}
-            <div className="lg:col-span-5">
-              <div className="rounded-card p-6 bg-stone-900/70 border border-white/15 backdrop-blur-md shadow-modal text-white space-y-5">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="font-bold text-xs uppercase tracking-wider text-stone-300">
-                      {selectedSchool} Campus Pulse
-                    </span>
-                  </div>
-                  <span className="text-[11px] text-accent-400 font-extrabold">Live Today</span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3.5 rounded-lg bg-black/30 border border-white/10">
-                    <div className="text-2xl font-black text-accent-400">
-                      {currentSchoolObj.activeSellersCount}
-                    </div>
-                    <div className="text-[11px] text-stone-300 font-medium">Active Vendors</div>
-                  </div>
-                  <div className="p-3.5 rounded-lg bg-black/30 border border-white/10">
-                    <div className="text-2xl font-black text-emerald-400">
-                      ₦4.8M+
-                    </div>
-                    <div className="text-[11px] text-stone-300 font-medium">Locked in Escrow</div>
-                  </div>
-                </div>
-
-                {/* Hot Campus Item Featured Preview */}
-                {listings[0] && (
-                  <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3.5">
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 border border-white/10">
-                      <SafeImage
-                        src={listings[0].images[0]}
-                        alt={listings[0].title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0 text-left">
-                      <span className="text-[10px] text-accent-400 font-bold block uppercase tracking-wider">
-                        Trending in {selectedSchool}
-                      </span>
-                      <h4 className="text-xs font-bold truncate text-white mt-0.5">{listings[0].title}</h4>
-                      <div className="text-xs font-black text-stone-200 mt-1">
-                        ₦{listings[0].price.toLocaleString()}
-                      </div>
-                    </div>
-                    <Link
-                      href={`/listing/${listings[0].id}`}
-                      className="p-2.5 rounded-button bg-accent-500 hover:bg-accent-600 text-white shrink-0 shadow-sm transition-colors"
-                      aria-label="View listing"
-                    >
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                )}
-              </div>
+            {/* Campus Selector Chips */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-4">
+              <span className="text-xs text-stone-400 mr-1 font-medium">Campus:</span>
+              {SCHOOLS.map(sch => (
+                <button
+                  key={sch.id}
+                  onClick={() => setSelectedSchool(sch.shortName)}
+                  className={`px-3 py-1 rounded-full text-xs transition-colors ${
+                    selectedSchool === sch.shortName
+                      ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 font-semibold'
+                      : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800'
+                  }`}
+                >
+                  {sch.shortName}
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Categories Grid with Dedicated Meaningful Icons */}
-        <section className="space-y-4">
+      {/* Main Content Area: High Breathing Room */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+        {/* 2. Categories: Minimalist & Clean */}
+        <section className="space-y-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg sm:text-xl font-bold text-stone-900 dark:text-stone-100">
-                Browse Campus Categories
-              </h2>
-              <p className="text-xs text-stone-500">Curated products, salon services, and skills in {selectedSchool}</p>
-            </div>
-            <Link href="/search" className="text-xs font-bold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
-              <span>View All</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+            <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+              Categories
+            </h2>
+            <Link href="/search" className="text-xs font-semibold text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+              View all →
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
             {CATEGORIES.map(cat => (
               <Link
                 key={cat.id}
                 href={`/search?category=${cat.slug}`}
-                className="p-4 rounded-card bg-white dark:bg-surface-darkCard border border-stone-200/90 dark:border-surface-darkBorder hover:border-brand-500 hover:shadow-subtle transition-all text-center group flex flex-col items-center justify-center gap-2.5"
+                className="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 transition-colors text-center group flex flex-col items-center justify-center gap-2"
               >
-                <div className="w-11 h-11 rounded-xl bg-stone-50 dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-lg bg-stone-100 dark:bg-stone-800 flex items-center justify-center">
                   {getCategoryIcon(cat.iconName)}
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold text-stone-900 dark:text-stone-100 group-hover:text-brand-600 transition-colors">
-                    {cat.name}
-                  </h3>
-                </div>
+                <span className="text-xs font-medium text-stone-800 dark:text-stone-200">
+                  {cat.name}
+                </span>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Clean "Pickup Available Today" Shelf */}
-        <section className="p-6 rounded-card bg-stone-900 text-white relative overflow-hidden shadow-subtle border border-stone-800">
-          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-600 text-white text-[11px] font-extrabold shadow-sm">
-                <Zap className="w-3.5 h-3.5 fill-current" />
-                <span>Ready Near You Today</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black tracking-tight">
-                Available for Pickup Today in {selectedSchool}
-              </h3>
-              <p className="text-xs text-stone-300">
-                {availableTodayCount} items in stock right now near faculties and hostels. Meet up in 20 minutes!
+        {/* 3. Feed Section: Spacious Grid with Clean Tabs */}
+        <section className="space-y-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-stone-200/60 dark:border-stone-800">
+            <div>
+              <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+                Marketplace in {selectedSchool}
+              </h2>
+              <p className="text-xs text-stone-500 mt-1">
+                {filteredListings.length} items available from verified student entrepreneurs
               </p>
             </div>
-            <button
-              onClick={() => setAvailableTodayOnly(!availableTodayOnly)}
-              className={`px-5 py-2.5 rounded-button text-xs font-extrabold transition-all flex items-center gap-2 ${
-                availableTodayOnly 
-                  ? 'bg-emerald-500 text-white ring-2 ring-white shadow-md' 
-                  : 'bg-white text-stone-900 hover:bg-stone-100'
-              }`}
-            >
-              <Zap className="w-4 h-4 text-emerald-600" />
-              <span>{availableTodayOnly ? 'Showing "Pickup Today" Only ✓' : 'Filter Available Today'}</span>
-            </button>
-          </div>
-        </section>
 
-        {/* Feed Filtering & Listing Grid */}
-        <section className="space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-stone-200 dark:border-stone-800">
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap items-center gap-2">
+            {/* Clean, Restrained Filter Tabs */}
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-stone-100 dark:bg-stone-800/80">
               <button
                 onClick={() => setActiveTab('ALL')}
-                className={`px-3.5 py-1.5 rounded-button text-xs font-bold transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   activeTab === 'ALL'
-                    ? 'bg-brand-900 text-white dark:bg-brand-600 shadow-sm'
-                    : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200'
+                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
                 }`}
               >
-                All Items ({filteredListings.length})
+                All
               </button>
               <button
                 onClick={() => setActiveTab('PRODUCT')}
-                className={`px-3.5 py-1.5 rounded-button text-xs font-bold transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   activeTab === 'PRODUCT'
-                    ? 'bg-brand-900 text-white dark:bg-brand-600 shadow-sm'
-                    : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200'
+                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
                 }`}
               >
                 Products
               </button>
               <button
                 onClick={() => setActiveTab('SERVICE')}
-                className={`px-3.5 py-1.5 rounded-button text-xs font-bold transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   activeTab === 'SERVICE'
-                    ? 'bg-brand-900 text-white dark:bg-brand-600 shadow-sm'
-                    : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200'
+                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
                 }`}
               >
-                Services & Braids
+                Services
               </button>
               <button
-                onClick={() => setActiveTab('TRAINING')}
-                className={`px-3.5 py-1.5 rounded-button text-xs font-bold transition-all ${
-                  activeTab === 'TRAINING'
-                    ? 'bg-brand-900 text-white dark:bg-brand-600 shadow-sm'
-                    : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200'
+                onClick={() => setActiveTab('TODAY')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  activeTab === 'TODAY'
+                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
                 }`}
               >
-                Skills & Bootcamps
-              </button>
-            </div>
-
-            {/* Price Filter Pill */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setUnder10kOnly(!under10kOnly)}
-                className={`px-3 py-1.5 rounded-button text-xs font-bold border transition-all ${
-                  under10kOnly
-                    ? 'bg-accent-50 border-accent-500 text-accent-700 dark:bg-accent-950 dark:text-accent-300'
-                    : 'border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400'
-                }`}
-              >
-                Under ₦10,000
+                Pickup Today
               </button>
             </div>
           </div>
 
-          {/* Listings Grid */}
+          {/* Cards Grid: Generous 24-32px Gaps */}
           {filteredListings.length === 0 ? (
-            <div className="text-center py-16 bg-white dark:bg-surface-darkCard rounded-card border border-stone-200 dark:border-stone-800 p-8">
-              <SlidersHorizontal className="w-10 h-10 text-stone-300 mx-auto mb-2" />
-              <h3 className="font-bold text-stone-900 dark:text-stone-100 text-sm mb-1">
-                No items match filters in {selectedSchool}
-              </h3>
-              <p className="text-xs text-stone-500 max-w-sm mx-auto mb-4">
-                Try toggling off "Available Today" or price filters.
-              </p>
+            <div className="py-20 text-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/70 dark:border-stone-800 space-y-3">
+              <p className="text-sm text-stone-500 font-medium">No listings match this filter in {selectedSchool}.</p>
               <button
-                onClick={() => {
-                  setActiveTab('ALL');
-                  setAvailableTodayOnly(false);
-                  setUnder10kOnly(false);
-                }}
-                className="px-4 py-2 rounded-button bg-brand-900 text-white text-xs font-bold"
+                onClick={() => { setActiveTab('ALL'); setSearchQuery(''); }}
+                className="text-xs font-semibold text-stone-900 dark:text-stone-100 underline"
               >
-                Reset Filters
+                Reset filters
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
               {filteredListings.map(listing => (
                 <ListingCard key={listing.id} listing={listing} />
               ))}
@@ -372,15 +237,13 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* Top Verified Brands Showcase */}
-        <section className="space-y-4 pt-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg sm:text-xl font-bold text-stone-900 dark:text-stone-100">
-                Top Verified Student Brands ({selectedSchool})
-              </h2>
-              <p className="text-xs text-stone-500">Student vendors backed by high trust scores and fast responses</p>
-            </div>
+        {/* 4. Verified Campus Stores: Restrained & Quiet */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+              Verified campus sellers
+            </h2>
+            <p className="text-xs text-stone-500 mt-1">Student entrepreneurs backed by ID verification and customer ratings</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -388,83 +251,76 @@ export default function HomePage() {
               <Link
                 key={brand.id}
                 href={`/brand/${brand.slug}`}
-                className="group p-4 rounded-card bg-white dark:bg-surface-darkCard border border-stone-200/90 dark:border-surface-darkBorder hover:border-brand-500 hover:shadow-subtle transition-all space-y-3"
+                className="p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 transition-colors space-y-3 group"
               >
-                <div className="flex items-center gap-3">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-stone-200">
+                <div className="flex items-center gap-3.5">
+                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-stone-200/70">
                     <SafeImage src={brand.logo} alt={brand.name} fill className="object-cover" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <h3 className="font-bold text-sm text-stone-900 dark:text-stone-100 group-hover:text-brand-600 transition-colors truncate">
-                        {brand.name}
-                      </h3>
-                      {brand.isVerified && (
-                        <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
-                      )}
-                    </div>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-sm text-stone-900 dark:text-stone-100 truncate group-hover:text-stone-700">
+                      {brand.name}
+                    </h3>
                     <div className="flex items-center gap-2 text-xs text-stone-500 mt-0.5">
-                      <span className="text-amber-500 font-extrabold flex items-center gap-0.5">
-                        <Star className="w-3.5 h-3.5 fill-current" /> {brand.rating}
+                      <span className="flex items-center gap-1 font-medium">
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> {brand.rating}
                       </span>
-                      <span>• {brand.totalSales} sales</span>
+                      <span>•</span>
+                      <span>{brand.totalSales} orders</span>
                     </div>
                   </div>
                 </div>
+
                 <p className="text-xs text-stone-600 dark:text-stone-400 line-clamp-2 leading-relaxed">
                   {brand.description}
                 </p>
-                <div className="pt-2 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs text-stone-500">
-                  <span className="font-bold text-emerald-600 dark:text-emerald-400">
-                    Trust Score: {brand.trustScore}%
+
+                <div className="pt-2 flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 dark:border-stone-800">
+                  <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                    {brand.trustScore}% Trust Score
                   </span>
-                  <span className="text-brand-600 font-bold group-hover:underline">Visit Store →</span>
+                  <span className="font-medium text-stone-800 dark:text-stone-200 group-hover:underline">
+                    View store →
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Escrow Explainer Section */}
-        <section className="p-8 rounded-card bg-white dark:bg-surface-darkCard border border-stone-200 dark:border-stone-800 space-y-6 shadow-subtle">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <EscrowBadge />
-            <h2 className="text-2xl font-black text-stone-900 dark:text-stone-100">
-              How Paystack Escrow Protects Campus Deals
+        {/* 5. How Escrow Works: Simple, Calm, High-Trust */}
+        <section className="p-8 sm:p-12 rounded-2xl bg-stone-100/70 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800 space-y-10">
+          <div className="max-w-xl mx-auto text-center space-y-2">
+            <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+              How Escrow keeps campus deals safe
             </h2>
-            <p className="text-xs sm:text-sm text-stone-500 leading-relaxed">
-              Never worry about fake sellers or unfulfilled orders on WhatsApp.
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              No prepayment risk. Money is only released when you inspect your item in person.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-            <div className="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/50 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-brand-900 text-white font-black flex items-center justify-center text-xs">
-                1
-              </div>
-              <h3 className="font-bold text-sm text-stone-900 dark:text-stone-100">Pay via Paystack Escrow</h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                Your payment is safely authorized and locked in Escrow. The seller is notified to prepare pickup.
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Step 1</span>
+              <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">Pay via Paystack Escrow</h3>
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+                Your payment is held safely in escrow. The student vendor is notified to prepare pickup.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/50 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-brand-900 text-white font-black flex items-center justify-center text-xs">
-                2
-              </div>
-              <h3 className="font-bold text-sm text-stone-900 dark:text-stone-100">Meetup & Inspect Item</h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                Meet the verified student vendor at your faculty quadrangle or hostel car park to check the item in person.
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Step 2</span>
+              <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">Meetup & Inspect</h3>
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+                Meet the seller at your faculty or hostel car park to check condition and confirm specifications.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/50 space-y-2">
-              <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white font-black flex items-center justify-center text-xs">
-                3
-              </div>
-              <h3 className="font-bold text-sm text-stone-900 dark:text-stone-100">Confirm & Release Funds</h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                Satisfied with your purchase? Tap "Confirm Receipt" in your Orders tab to release payment directly to the seller.
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Step 3</span>
+              <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">Release Funds</h3>
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+                Once satisfied, tap "Confirm Delivery" in your orders to instantly transfer payment to the seller.
               </p>
             </div>
           </div>
