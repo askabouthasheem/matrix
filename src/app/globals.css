@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 98%; /* #FAFAF9 */
+    --foreground: 24 10% 10%; /* #1C1917 */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 24 10% 10%;
+    --primary: 243 47% 20%; /* #1E1B4B - Deep Navy Indigo */
+    --primary-foreground: 0 0% 100%;
+    --accent: 24 95% 53%; /* #F97316 - Warm Coral */
+    --accent-foreground: 0 0% 100%;
+    --muted: 30 6% 93%; /* #F5F5F4 */
+    --muted-foreground: 25 5% 45%; /* #78716C */
+    --border: 30 6% 90%; /* #E7E5E4 */
+    --radius: 0.75rem; /* 12px */
+  }
+
+  .dark {
+    --background: 240 10% 8%; /* #121216 */
+    --foreground: 40 20% 96%;
+    --card: 240 10% 12%; /* #1C1C24 */
+    --card-foreground: 40 20% 96%;
+    --primary: 243 60% 65%;
+    --primary-foreground: 240 10% 8%;
+    --accent: 24 95% 53%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 240 8% 18%;
+    --muted-foreground: 240 5% 65%;
+    --border: 240 8% 20%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom Utilities for Premium Campus Feel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(231, 229, 228, 0.6);
+}
+
+.dark .glass-panel {
+  background: rgba(28, 28, 36, 0.85);
+  border: 1px solid rgba(46, 46, 58, 0.6);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Pulse animation for live indicators */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.4; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.pulse-badge {
+  animation: pulse-ring 2s infinite ease-in-out;
+}

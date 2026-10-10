@@ -1,0 +1,200 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                String             @id @default(uuid())
+  name              String
+  email             String             @unique
+  password          String?
+  role              String             @default("BUYER") // BUYER, SELLER, ADMIN
+  schoolId          String?
+  school            School?            @relation(fields: [schoolId], references: [id])
+  isVerified        Boolean            @default(false)
+  emailVerified     Boolean            @default(true)
+  studentIdUrl      String?
+  avatar            String?
+  trustScore        Float              @default(95.0)
+  responseTime      String             @default("< 15 mins")
+  whatsappNumber    String?
+  bio               String?
+  brand             Brand?
+  ordersAsBuyer     Order[]            @relation("BuyerOrders")
+  ordersAsSeller    Order[]            @relation("SellerOrders")
+  reviewsGiven      Review[]           @relation("BuyerReviews")
+  conversationsSent Conversation[]     @relation("BuyerConversations")
+  conversationsRecv Conversation[]     @relation("SellerConversations")
+  messagesSent      Message[]
+  notifications     Notification[]
+  sellerApplication SellerApplication?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+model School {
+  id                 String              @id @default(uuid())
+  name               String
+  shortName          String              @unique // UNILAG, LASU, UI, UNIOSUN, FOUNTAIN
+  city               String
+  state              String
+  emailDomain        String              @default("edu.ng")
+  activeSellersCount Int                 @default(0)
+  users              User[]
+  listings           Listing[]
+  sellerApplications SellerApplication[]
+  createdAt          DateTime            @default(now())
+}
+
+model Brand {
+  id                 String    @id @default(uuid())
+  userId             String    @unique
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name               String
+  slug               String    @unique
+  description        String?
+  logo               String?
+  banner             String?
+  isVerified         Boolean   @default(true)
+  rating             Float     @default(4.8)
+  reviewCount        Int       @default(0)
+  totalSales         Int       @default(0)
+  whatsappCatalogUrl String?
+  listings           Listing[]
+  orders             Order[]
+  reviews            Review[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  icon        String
+  description String?
+  listings    Listing[]
+}
+
+model Listing {
+  id               String         @id @default(uuid())
+  brandId          String
+  brand            Brand          @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  schoolId         String
+  school           School         @relation(fields: [schoolId], references: [id])
+  categoryId       String
+  category         Category       @relation(fields: [categoryId], references: [id])
+  title            String
+  slug             String         @unique
+  description      String
+  price            Float
+  originalPrice    Float?
+  type             String         @default("PRODUCT") // PRODUCT, SERVICE, TRAINING
+  images           String         // JSON array of image URLs
+  stock            Int            @default(10)
+  isAvailableToday Boolean        @default(true)
+  isFeatured       Boolean        @default(false)
+  status           String         @default("ACTIVE") // ACTIVE, INACTIVE, MODERATION
+  views            Int            @default(0)
+  orders           Order[]
+  reviews          Review[]
+  conversations    Conversation[]
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model Order {
+  id               String   @id @default(uuid())
+  orderNumber      String   @unique
+  buyerId          String
+  buyer            User     @relation("BuyerOrders", fields: [buyerId], references: [id])
+  sellerId         String
+  seller           User     @relation("SellerOrders", fields: [sellerId], references: [id])
+  brandId          String
+  brand            Brand    @relation(fields: [brandId], references: [id])
+  listingId        String
+  listing          Listing  @relation(fields: [listingId], references: [id])
+  quantity         Int      @default(1)
+  amount           Float
+  escrowStatus     String   @default("HELD_IN_ESCROW") // PENDING, HELD_IN_ESCROW, RELEASED_TO_SELLER, REFUNDED
+  fulfillmentType  String   @default("PICKUP") // PICKUP, DELIVERY
+  deliveryLocation String?
+  status           String   @default("PENDING") // PENDING, CONFIRMED, DELIVERED, COMPLETED, CANCELLED
+  paymentRef       String
+  paymentProvider  String   @default("Paystack")
+  reviews          Review[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  brandId   String
+  brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  buyerId   String
+  buyer     User     @relation("BuyerReviews", fields: [buyerId], references: [id])
+  orderId   String?
+  order     Order?   @relation(fields: [orderId], references: [id])
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+}
+
+model Conversation {
+  id        String    @id @default(uuid())
+  buyerId   String
+  buyer     User      @relation("BuyerConversations", fields: [buyerId], references: [id])
+  sellerId  String
+  seller    User      @relation("SellerConversations", fields: [sellerId], references: [id])
+  listingId String?
+  listing   Listing?  @relation(fields: [listingId], references: [id])
+  messages  Message[]
+  updatedAt DateTime  @updatedAt
+  createdAt DateTime  @default(now())
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id])
+  text           String
+  isRead         Boolean      @default(false)
+  attachmentUrl  String?
+  createdAt      DateTime     @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   @default("INFO") // ORDER, CHAT, VERIFICATION, SYSTEM
+  link      String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SellerApplication {
+  id                  String   @id @default(uuid())
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  schoolId            String
+  school              School   @relation(fields: [schoolId], references: [id])
+  storeName           String
+  category            String
+  studentIdCardUrl    String
+  businessDescription String
+  status              String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  rejectionReason     String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
