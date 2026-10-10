@@ -15,7 +15,8 @@ import {
   GraduationCap, 
   Home as HomeIcon,
   CheckCircle2,
-  ChevronRight
+  Lock,
+  ArrowUpRight
 } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { CATEGORIES, SCHOOLS, BRANDS, Category } from '@/lib/mockData';
@@ -45,80 +46,83 @@ export default function HomePage() {
   const campusBrands = BRANDS.filter(b => selectedSchool === 'ALL' || b.schoolShortName === selectedSchool);
 
   const getCategoryIcon = (iconName: Category['iconName']) => {
+    const iconClass = "w-4 h-4 text-stone-700 dark:text-stone-300";
     switch (iconName) {
       case 'Smartphone':
-        return <Smartphone className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <Smartphone className={iconClass} />;
       case 'Shirt':
-        return <Shirt className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <Shirt className={iconClass} />;
       case 'Sparkles':
-        return <Sparkles className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <Sparkles className={iconClass} />;
       case 'Utensils':
-        return <Utensils className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <Utensils className={iconClass} />;
       case 'Briefcase':
-        return <Briefcase className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <Briefcase className={iconClass} />;
       case 'GraduationCap':
-        return <GraduationCap className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <GraduationCap className={iconClass} />;
       case 'Home':
-        return <HomeIcon className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <HomeIcon className={iconClass} />;
       default:
-        return <Sparkles className="w-4 h-4 text-stone-600 dark:text-stone-300" />;
+        return <Sparkles className={iconClass} />;
     }
   };
 
   return (
-    <div className="space-y-24 pb-28">
-      {/* 1. Hero Section: Open, Calm, Spacious & Confident */}
-      <section className="pt-20 pb-14 px-4 sm:px-6 lg:px-8 border-b border-stone-200/50 dark:border-stone-800/50 bg-gradient-to-b from-stone-50/60 to-transparent dark:from-stone-900/20">
+    <div className="space-y-28 pb-32">
+      {/* 1. Hero: Distinctive, High-Craft Editorial Atmosphere */}
+      <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 border-b border-stone-200/60 dark:border-stone-800/60 bg-gradient-to-b from-[#F9F9F8] to-surface-light dark:from-stone-900/30 dark:to-surface-dark overflow-hidden">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          {/* Subtle Trust Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span>Campus escrow protection • Verified student IDs</span>
+          {/* Refined Minimalist Trust Pill */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 text-stone-700 dark:text-stone-300 text-xs font-medium shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+            <span className="tracking-tight">Paystack Escrow Protection • .edu.ng Verified Students</span>
           </div>
 
-          {/* Calm, Strong Headline */}
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-stone-900 dark:text-stone-50 leading-[1.12]">
+          {/* Distinctive Hero Headline with Editorial Depth */}
+          <h1 className="text-4xl sm:text-6xl lg:text-[66px] font-extrabold tracking-[-0.035em] text-stone-950 dark:text-stone-50 leading-[1.08]">
             Trade safely on campus. <br className="hidden sm:inline" />
-            Without the WhatsApp chaos.
+            <span className="text-stone-400 dark:text-stone-500 font-semibold tracking-[-0.025em]">
+              Without the WhatsApp chaos.
+            </span>
           </h1>
 
-          {/* Generous Subtext */}
+          {/* Generous Readable Subtitle */}
           <p className="text-base sm:text-lg text-stone-600 dark:text-stone-300 max-w-2xl mx-auto leading-relaxed font-normal">
-            A trusted marketplace for <strong className="text-stone-900 dark:text-stone-100 font-semibold">{currentSchoolObj.name}</strong> students. Buy tech, book beauty services, and order food directly from verified peers.
+            A trusted marketplace built for <strong className="text-stone-900 dark:text-stone-100 font-semibold">{currentSchoolObj.name}</strong> students. Buy electronics, book hair stylists, or order meals directly from verified peers.
           </p>
 
-          {/* Clean Integrated Search & Campus Bar */}
-          <div className="max-w-2xl mx-auto pt-2">
-            <div className="flex items-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm p-1.5 focus-within:border-stone-400 dark:focus-within:border-stone-600 transition-colors">
+          {/* Sculpted Search Experience */}
+          <div className="max-w-2xl mx-auto pt-2 space-y-4">
+            <div className="flex items-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06)] p-2 focus-within:border-stone-400 dark:focus-within:border-stone-600 transition-all">
               <div className="pl-3 text-stone-400">
-                <Search className="w-5 h-5" />
+                <Search className="w-4 h-4" />
               </div>
               <input
                 type="text"
-                placeholder={`Search powerbanks, braiding, laptops at ${selectedSchool}...`}
+                placeholder={`Search products or services at ${selectedSchool}...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 px-3 py-2.5 bg-transparent text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 focus:outline-none"
+                className="flex-1 px-3 py-2 bg-transparent text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 focus:outline-none"
               />
               <Link
                 href={`/search?q=${encodeURIComponent(searchQuery)}`}
-                className="px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-900 text-xs font-semibold transition-colors shrink-0"
+                className="px-6 py-2.5 rounded-xl bg-stone-950 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 text-xs font-semibold tracking-tight active:scale-[0.98] transition-all shrink-0"
               >
                 Search
               </Link>
             </div>
 
-            {/* Campus Selector Chips */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-4">
-              <span className="text-xs text-stone-400 mr-1 font-medium">Campus:</span>
+            {/* Tactile Campus Filter Chips */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+              <span className="text-xs font-medium text-stone-400 mr-1.5">Campus:</span>
               {SCHOOLS.map(sch => (
                 <button
                   key={sch.id}
                   onClick={() => setSelectedSchool(sch.shortName)}
-                  className={`px-3 py-1 rounded-full text-xs transition-colors ${
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                     selectedSchool === sch.shortName
-                      ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 font-semibold'
-                      : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800'
+                      ? 'bg-stone-950 text-white dark:bg-stone-100 dark:text-stone-950 shadow-sm'
+                      : 'text-stone-600 dark:text-stone-400 hover:text-stone-950 hover:bg-stone-200/60 dark:hover:bg-stone-800'
                   }`}
                 >
                   {sch.shortName}
@@ -129,14 +133,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Main Content Area: High Breathing Room */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-        {/* 2. Categories: Minimalist & Clean */}
+      {/* Main Content Area */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-28">
+        {/* 2. Categories: Tactile Minimalist Strip */}
         <section className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
-              Categories
-            </h2>
+          <div className="flex items-end justify-between">
+            <div>
+              <span className="text-[10px] font-bold text-stone-400 tracking-wider uppercase block mb-1">Explore</span>
+              <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+                Categories
+              </h2>
+            </div>
             <Link href="/search" className="text-xs font-semibold text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
               View all →
             </Link>
@@ -147,12 +154,12 @@ export default function HomePage() {
               <Link
                 key={cat.id}
                 href={`/search?category=${cat.slug}`}
-                className="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 transition-colors text-center group flex flex-col items-center justify-center gap-2"
+                className="p-4 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 shadow-subtle hover:shadow-card hover:-translate-y-0.5 transition-all duration-200 text-center group flex flex-col items-center justify-center gap-2.5"
               >
-                <div className="w-10 h-10 rounded-lg bg-stone-100 dark:bg-stone-800 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-stone-100/80 dark:bg-stone-800 flex items-center justify-center group-hover:scale-105 transition-transform">
                   {getCategoryIcon(cat.iconName)}
                 </div>
-                <span className="text-xs font-medium text-stone-800 dark:text-stone-200">
+                <span className="text-xs font-medium text-stone-800 dark:text-stone-200 tracking-tight">
                   {cat.name}
                 </span>
               </Link>
@@ -160,56 +167,56 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 3. Feed Section: Spacious Grid with Clean Tabs */}
+        {/* 3. Feed Section: Spacious Grid with Clean Segmented Control */}
         <section className="space-y-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-2 border-b border-stone-200/60 dark:border-stone-800">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pb-3 border-b border-stone-200/60 dark:border-stone-800">
             <div>
+              <span className="text-[10px] font-bold text-stone-400 tracking-wider uppercase block mb-1">
+                {currentSchoolObj.city}
+              </span>
               <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
-                Marketplace in {selectedSchool}
+                Marketplace at {selectedSchool}
               </h2>
-              <p className="text-xs text-stone-500 mt-1">
-                {filteredListings.length} items available from verified student entrepreneurs
-              </p>
             </div>
 
-            {/* Clean, Restrained Filter Tabs */}
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-stone-100 dark:bg-stone-800/80">
+            {/* Native Segmented Control Filter */}
+            <div className="flex items-center gap-1 p-1 rounded-xl bg-stone-100 dark:bg-stone-800/90 border border-stone-200/50 dark:border-stone-700/50">
               <button
                 onClick={() => setActiveTab('ALL')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   activeTab === 'ALL'
-                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
+                    ? 'bg-white dark:bg-stone-900 text-stone-950 dark:text-stone-100 shadow-sm font-semibold'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950'
                 }`}
               >
-                All
+                All ({listings.filter(l => selectedSchool === 'ALL' || l.schoolShortName === selectedSchool).length})
               </button>
               <button
                 onClick={() => setActiveTab('PRODUCT')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   activeTab === 'PRODUCT'
-                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
+                    ? 'bg-white dark:bg-stone-900 text-stone-950 dark:text-stone-100 shadow-sm font-semibold'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950'
                 }`}
               >
                 Products
               </button>
               <button
                 onClick={() => setActiveTab('SERVICE')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   activeTab === 'SERVICE'
-                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
+                    ? 'bg-white dark:bg-stone-900 text-stone-950 dark:text-stone-100 shadow-sm font-semibold'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950'
                 }`}
               >
                 Services
               </button>
               <button
                 onClick={() => setActiveTab('TODAY')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   activeTab === 'TODAY'
-                    ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm'
-                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
+                    ? 'bg-white dark:bg-stone-900 text-stone-950 dark:text-stone-100 shadow-sm font-semibold'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-950'
                 }`}
               >
                 Pickup Today
@@ -217,13 +224,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Cards Grid: Generous 24-32px Gaps */}
+          {/* Cards Grid: Generous 28px Spacing */}
           {filteredListings.length === 0 ? (
-            <div className="py-20 text-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/70 dark:border-stone-800 space-y-3">
-              <p className="text-sm text-stone-500 font-medium">No listings match this filter in {selectedSchool}.</p>
+            <div className="py-24 text-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/70 dark:border-stone-800 space-y-3">
+              <p className="text-sm text-stone-500 font-medium">No listings match this filter at {selectedSchool}.</p>
               <button
                 onClick={() => { setActiveTab('ALL'); setSearchQuery(''); }}
-                className="text-xs font-semibold text-stone-900 dark:text-stone-100 underline"
+                className="text-xs font-semibold text-stone-900 dark:text-stone-100 underline underline-offset-4"
               >
                 Reset filters
               </button>
@@ -237,13 +244,20 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* 4. Verified Campus Stores: Restrained & Quiet */}
+        {/* 4. Verified Campus Founders / Sellers: Editorial Craft */}
         <section className="space-y-6">
-          <div>
-            <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
-              Verified campus sellers
-            </h2>
-            <p className="text-xs text-stone-500 mt-1">Student entrepreneurs backed by ID verification and customer ratings</p>
+          <div className="flex items-end justify-between">
+            <div>
+              <span className="text-[10px] font-bold text-stone-400 tracking-wider uppercase block mb-1">
+                Student Founders
+              </span>
+              <h2 className="text-xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
+                Verified campus sellers
+              </h2>
+            </div>
+            <Link href="/seller/onboarding" className="text-xs font-semibold text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 transition-colors">
+              Become a verified seller →
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -251,36 +265,43 @@ export default function HomePage() {
               <Link
                 key={brand.id}
                 href={`/brand/${brand.slug}`}
-                className="p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 transition-colors space-y-3 group"
+                className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 shadow-subtle hover:shadow-card transition-all duration-200 space-y-3.5 group flex flex-col justify-between"
               >
-                <div className="flex items-center gap-3.5">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-stone-200/70">
-                    <SafeImage src={brand.logo} alt={brand.name} fill className="object-cover" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-semibold text-sm text-stone-900 dark:text-stone-100 truncate group-hover:text-stone-700">
-                      {brand.name}
-                    </h3>
-                    <div className="flex items-center gap-2 text-xs text-stone-500 mt-0.5">
-                      <span className="flex items-center gap-1 font-medium">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> {brand.rating}
-                      </span>
-                      <span>•</span>
-                      <span>{brand.totalSales} orders</span>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3.5">
+                    <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-stone-200/70 shadow-sm">
+                      <SafeImage src={brand.logo} alt={brand.name} fill className="object-cover" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <h3 className="font-semibold text-sm text-stone-950 dark:text-stone-50 truncate group-hover:text-stone-700">
+                          {brand.name}
+                        </h3>
+                        {brand.isVerified && (
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-stone-500 mt-0.5">
+                        <span className="flex items-center gap-1 font-medium">
+                          <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> {brand.rating}
+                        </span>
+                        <span>•</span>
+                        <span>{brand.totalSales} completed orders</span>
+                      </div>
                     </div>
                   </div>
+
+                  <p className="text-xs text-stone-600 dark:text-stone-400 line-clamp-2 leading-relaxed font-normal">
+                    {brand.description}
+                  </p>
                 </div>
 
-                <p className="text-xs text-stone-600 dark:text-stone-400 line-clamp-2 leading-relaxed">
-                  {brand.description}
-                </p>
-
-                <div className="pt-2 flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 dark:border-stone-800">
+                <div className="pt-3 flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 dark:border-stone-800/80">
                   <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
                     {brand.trustScore}% Trust Score
                   </span>
-                  <span className="font-medium text-stone-800 dark:text-stone-200 group-hover:underline">
-                    View store →
+                  <span className="font-medium text-stone-900 dark:text-stone-100 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                    Storefront <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>
               </Link>
@@ -288,39 +309,42 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 5. How Escrow Works: Simple, Calm, High-Trust */}
-        <section className="p-8 sm:p-12 rounded-2xl bg-stone-100/70 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800 space-y-10">
-          <div className="max-w-xl mx-auto text-center space-y-2">
-            <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100 tracking-tight">
-              How Escrow keeps campus deals safe
+        {/* 5. How Escrow Works: Institutional Banking Security Restraint */}
+        <section className="p-8 sm:p-14 rounded-3xl bg-[#F8F8F7] dark:bg-stone-900/60 border border-stone-200/70 dark:border-stone-800 space-y-10 shadow-subtle">
+          <div className="max-w-xl mx-auto text-center space-y-2.5">
+            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest block font-mono">
+              ESCROW PROTECTION
+            </span>
+            <h2 className="text-2xl font-bold text-stone-950 dark:text-stone-50 tracking-tight">
+              How Paystack Escrow protects your campus trades
             </h2>
-            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
-              No prepayment risk. Money is only released when you inspect your item in person.
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
+              No prepayment risk. Your money is only transferred when you physically inspect and confirm your order.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="space-y-2">
-              <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Step 1</span>
-              <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">Pay via Paystack Escrow</h3>
-              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                Your payment is held safely in escrow. The student vendor is notified to prepare pickup.
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto pt-2">
+            <div className="space-y-2 p-5 rounded-2xl bg-white/70 dark:bg-stone-900/70 border border-stone-200/50">
+              <span className="text-xs font-mono font-bold text-stone-400">01</span>
+              <h3 className="text-sm font-semibold text-stone-950 dark:text-stone-50">Authorized in Escrow</h3>
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
+                Payment is safely authorized via Paystack Escrow. The verified student seller prepares your pickup.
               </p>
             </div>
 
-            <div className="space-y-2">
-              <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Step 2</span>
-              <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">Meetup & Inspect</h3>
-              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                Meet the seller at your faculty or hostel car park to check condition and confirm specifications.
+            <div className="space-y-2 p-5 rounded-2xl bg-white/70 dark:bg-stone-900/70 border border-stone-200/50">
+              <span className="text-xs font-mono font-bold text-stone-400">02</span>
+              <h3 className="text-sm font-semibold text-stone-950 dark:text-stone-50">Campus Meetup</h3>
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
+                Meet the vendor at your faculty quadrangle or hostel car park to inspect the item in person.
               </p>
             </div>
 
-            <div className="space-y-2">
-              <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Step 3</span>
-              <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-100">Release Funds</h3>
-              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                Once satisfied, tap "Confirm Delivery" in your orders to instantly transfer payment to the seller.
+            <div className="space-y-2 p-5 rounded-2xl bg-white/70 dark:bg-stone-900/70 border border-stone-200/50">
+              <span className="text-xs font-mono font-bold text-stone-400">03</span>
+              <h3 className="text-sm font-semibold text-stone-950 dark:text-stone-50">Release Funds</h3>
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
+                Confirm receipt on the web app to transfer funds directly to the seller's verified bank account.
               </p>
             </div>
           </div>

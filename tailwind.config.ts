@@ -11,17 +11,17 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          50: '#F5F4FF',
-          100: '#EBE9FE',
-          200: '#D7D3FE',
-          300: '#B5ACFC',
-          400: '#8D7BFA',
-          500: '#6346F6',
-          600: '#4F28ED',
-          700: '#3D15D9',
-          800: '#2C10B3',
-          900: '#1E1B4B', // Primary Navy / Deep Indigo
-          950: '#0F0C2E',
+          50: '#F5F6FA',
+          100: '#EAEBF4',
+          200: '#D5D7E9',
+          300: '#B2B6D6',
+          400: '#898FBE',
+          500: '#656BA6',
+          600: '#4D538E',
+          700: '#3A3F71',
+          800: '#2A2E55',
+          900: '#14172C', // Deep refined ink navy
+          950: '#0B0C18',
         },
         accent: {
           50: '#FFF7ED',
@@ -29,37 +29,43 @@ const config: Config = {
           200: '#FED7AA',
           300: '#FDBA74',
           400: '#FB923C',
-          500: '#F97316', // Warm Coral / Amber
+          500: '#F97316', // Purposeful warm coral
           600: '#EA580C',
           700: '#C2410C',
           800: '#9A3412',
           900: '#7C2D12',
         },
         surface: {
-          light: '#FAFAF9', // Off-white warm gray
+          light: '#FBFBFA', // Warm linen off-white
           card: '#FFFFFF',
-          dark: '#121216',
-          darkCard: '#1C1C24',
-          border: '#E7E5E4',
-          darkBorder: '#2E2E3A'
+          dark: '#111114',
+          darkCard: '#18181D',
+          border: '#E8E8E6',
+          darkBorder: '#292930'
         }
       },
       borderRadius: {
         'card': '16px',
         'button': '10px',
-        'input': '10px',
-        'badge': '20px',
+        'input': '12px',
+        'badge': '9999px',
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'Inter', 'sans-serif'],
+        sans: ['var(--font-geist-sans)', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
+      letterSpacing: {
+        'tighter': '-0.04em',
+        'tight': '-0.025em',
+        'display': '-0.035em',
+      },
       boxShadow: {
-        'subtle': '0 2px 10px rgba(0, 0, 0, 0.04)',
-        'card': '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
-        'card-hover': '0 12px 30px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04)',
-        'modal': '0 20px 50px -10px rgba(0, 0, 0, 0.15)',
-        'nav': '0 -2px 15px rgba(0, 0, 0, 0.05)',
+        'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02)',
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 6px 16px -2px rgba(0, 0, 0, 0.03)',
+        'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 16px 28px -4px rgba(0, 0, 0, 0.05)',
+        'elevated': '0 10px 30px -10px rgba(0, 0, 0, 0.07), 0 2px 6px -2px rgba(0, 0, 0, 0.03)',
+        'modal': '0 25px 60px -15px rgba(0, 0, 0, 0.18)',
+        'nav': '0 1px 2px 0 rgba(0, 0, 0, 0.03)',
       }
     },
   },

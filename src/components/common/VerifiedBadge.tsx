@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, CheckCircle2, Award } from 'lucide-react';
+import { ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 interface VerifiedBadgeProps {
   schoolShortName?: string;
@@ -13,23 +13,23 @@ export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
   showText = true 
 }) => {
   const iconSizes = {
-    sm: 'w-3.5 h-3.5',
-    md: 'w-4 h-4',
-    lg: 'w-5 h-5'
+    sm: 'w-3 h-3',
+    md: 'w-3.5 h-3.5',
+    lg: 'w-4 h-4'
   };
 
   const textSizes = {
-    sm: 'text-[11px] font-bold',
-    md: 'text-xs font-extrabold',
-    lg: 'text-sm font-black'
+    sm: 'text-[10px] font-semibold tracking-tight',
+    md: 'text-[11px] font-semibold tracking-tight',
+    lg: 'text-xs font-bold tracking-tight'
   };
 
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-500/30 shadow-subtle backdrop-blur-sm">
-      <ShieldCheck className={`${iconSizes[size]} text-emerald-600 dark:text-emerald-400 shrink-0 fill-emerald-500/20`} />
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-500/20 backdrop-blur-sm">
+      <ShieldCheck className={`${iconSizes[size]} text-emerald-600 dark:text-emerald-400 shrink-0`} />
       {showText && (
-        <span className={`${textSizes[size]} tracking-tight flex items-center gap-1`}>
-          Verified Student {schoolShortName ? <span className="opacity-70 font-semibold">({schoolShortName})</span> : ''}
+        <span className={textSizes[size]}>
+          Verified student {schoolShortName ? <span className="opacity-75 font-normal">({schoolShortName})</span> : ''}
         </span>
       )}
     </span>
@@ -38,28 +38,9 @@ export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
 
 export const TrustScoreRing: React.FC<{ score: number; size?: 'sm' | 'md' }> = ({ score, size = 'md' }) => {
   return (
-    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-badge bg-brand-900/5 dark:bg-brand-950/80 border border-brand-200 dark:border-brand-800 text-brand-900 dark:text-brand-200">
-      <div className="relative w-4 h-4 flex items-center justify-center">
-        <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-          <path
-            className="text-stone-200 dark:text-stone-700"
-            strokeWidth="4"
-            stroke="currentColor"
-            fill="none"
-            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-          <path
-            className="text-emerald-500"
-            strokeDasharray={`${score}, 100`}
-            strokeWidth="4"
-            strokeLinecap="round"
-            stroke="currentColor"
-            fill="none"
-            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-          />
-        </svg>
-      </div>
-      <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
+    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-100 dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60 text-stone-700 dark:text-stone-300">
+      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+      <span className="text-xs font-semibold tracking-tight">
         {score}% Trust Score
       </span>
     </div>
@@ -68,8 +49,8 @@ export const TrustScoreRing: React.FC<{ score: number; size?: 'sm' | 'md' }> = (
 
 export const EscrowBadge: React.FC<{ size?: 'sm' | 'md' }> = ({ size = 'md' }) => {
   return (
-    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 text-xs font-bold shadow-subtle">
-      <CheckCircle2 className="w-3.5 h-3.5 text-accent-400 dark:text-accent-600" />
+    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold border border-stone-200/60 dark:border-stone-700/60 shadow-sm">
+      <CheckCircle2 className="w-3.5 h-3.5 text-stone-900 dark:text-stone-100" />
       Paystack Escrow Protected
     </span>
   );
