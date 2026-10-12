@@ -71,12 +71,6 @@ export default function HomePage() {
       {/* 1. Hero: Final Polish with Architectural Headline & Tactile Search Bar */}
       <section className="relative pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8 border-b border-stone-200/70 dark:border-stone-800/70 bg-gradient-to-b from-[#F9F9F7] via-surface-light to-surface-light dark:from-stone-900/40 dark:via-surface-dark dark:to-surface-dark overflow-hidden">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          {/* Refined Minimalist Trust Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span className="tracking-tight">Verified Campus Network • Paystack Escrow Protection</span>
-          </div>
-
           {/* Confident, Distinctive Hero Headline: 76px Bold Contrast */}
           <h1 className="text-5xl sm:text-7xl lg:text-[76px] font-black tracking-[-0.045em] text-stone-950 dark:text-stone-50 leading-[1.02]">
             Trade safely on campus.
