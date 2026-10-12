@@ -138,14 +138,14 @@ export default function ListingDetailPage() {
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl font-bold text-stone-950 dark:text-stone-50 leading-tight tracking-tight">
+            <h1 className="text-2xl sm:text-[26px] font-black text-stone-950 dark:text-stone-50 leading-tight tracking-[-0.025em]">
               {listing.title}
             </h1>
 
             {/* Price Area */}
             <div className="pt-1 space-y-3">
               <div className="flex items-baseline gap-2.5">
-                <span className="text-3xl sm:text-4xl font-extrabold text-stone-950 dark:text-stone-50 tracking-[-0.025em] tabular-nums">
+                <span className="text-3xl sm:text-4xl font-black text-stone-950 dark:text-stone-50 tracking-[-0.03em] tabular-nums">
                   ₦{listing.price.toLocaleString()}
                 </span>
                 {listing.originalPrice && (
@@ -156,7 +156,7 @@ export default function ListingDetailPage() {
               </div>
 
               {/* Escrow Guarantee Callout */}
-              <div className="flex items-center gap-2 text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 px-3 py-2 rounded-xl font-medium">
+              <div className="flex items-center gap-2 text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 px-3 py-2 rounded-xl font-semibold">
                 <Lock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>Held in Paystack Escrow until you inspect & confirm pickup</span>
               </div>
@@ -166,7 +166,7 @@ export default function ListingDetailPage() {
             <div className="space-y-3 pt-2">
               <button
                 onClick={() => setIsCheckoutModalOpen(true)}
-                className="w-full py-4 rounded-xl bg-stone-950 hover:bg-stone-850 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-semibold text-sm tracking-tight transition-all shadow-button-primary active:scale-[0.98]"
+                className="w-full py-4 rounded-xl bg-stone-950 hover:bg-stone-850 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-bold text-sm tracking-tight transition-all shadow-[0_2px_10px_rgba(0,0,0,0.15)] active:scale-[0.98]"
               >
                 Pay via Escrow (₦{listing.price.toLocaleString()})
               </button>
@@ -174,7 +174,7 @@ export default function ListingDetailPage() {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => addToCart(listing)}
-                  className="py-3 rounded-xl border border-stone-200/90 dark:border-stone-700/80 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-tactile"
+                  className="py-3 rounded-xl border border-stone-200/90 dark:border-stone-700/80 bg-white dark:bg-stone-850 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-850 dark:text-stone-200 text-xs font-bold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-tactile"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>Add to cart</span>
@@ -183,7 +183,7 @@ export default function ListingDetailPage() {
                 <Link
                   href={`/chat?listingId=${listing.id}`}
                   onClick={() => startConversation(listing)}
-                  className="py-3 rounded-xl border border-stone-200/90 dark:border-stone-700/80 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-tactile"
+                  className="py-3 rounded-xl border border-stone-200/90 dark:border-stone-700/80 bg-white dark:bg-stone-850 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-850 dark:text-stone-200 text-xs font-bold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-tactile"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Chat seller</span>
