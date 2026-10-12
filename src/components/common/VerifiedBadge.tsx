@@ -38,12 +38,9 @@ export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
 
 export const TrustScoreRing: React.FC<{ score: number; size?: 'sm' | 'md' }> = ({ score, size = 'md' }) => {
   return (
-    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-100/90 dark:bg-stone-800/80 border border-stone-200/70 dark:border-stone-700/70 text-stone-700 dark:text-stone-300 shadow-xs">
-      <span className="relative flex h-1.5 w-1.5">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-      </span>
-      <span className="text-xs font-semibold tracking-tight tabular-nums">
+    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-stone-100/80 dark:bg-stone-800 border border-stone-200/50 dark:border-stone-700/50 text-stone-600 dark:text-stone-300 text-[11px] font-medium">
+      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80 shrink-0" />
+      <span className="tracking-tight tabular-nums">
         {score}% Trust Score
       </span>
     </div>

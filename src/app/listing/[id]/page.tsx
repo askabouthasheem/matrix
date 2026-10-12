@@ -126,7 +126,7 @@ export default function ListingDetailPage() {
 
         {/* Right Column: Clean Purchase Card & Seller Info */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="p-7 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-6 shadow-card">
+          <div className="p-6 sm:p-7 rounded-[14px] bg-white dark:bg-stone-900 border border-stone-200/60 dark:border-stone-800 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] space-y-6">
             {/* Meta */}
             <div className="flex items-center justify-between text-xs text-stone-500">
               <span className="flex items-center gap-1 font-semibold text-stone-700 dark:text-stone-300">
@@ -138,7 +138,7 @@ export default function ListingDetailPage() {
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-[26px] font-black text-stone-950 dark:text-stone-50 leading-tight tracking-[-0.025em]">
+            <h1 className="text-2xl sm:text-[26px] font-bold text-stone-950 dark:text-stone-50 leading-tight tracking-[-0.025em]">
               {listing.title}
             </h1>
 
@@ -210,7 +210,7 @@ export default function ListingDetailPage() {
           </div>
 
           {/* Seller Profile Card: Calm & High-Trust */}
-          <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-4 shadow-card">
+          <div className="p-6 rounded-[14px] bg-white dark:bg-stone-900 border border-stone-200/60 dark:border-stone-800 space-y-4 shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 font-bold">Seller</span>
               <VerifiedBadge schoolShortName={listing.schoolShortName} size="sm" />
