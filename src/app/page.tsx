@@ -68,16 +68,16 @@ export default function HomePage() {
 
   return (
     <div className="space-y-32 pb-32">
-      {/* 1. Hero: Decisive Presence, High-Contrast Typography & Command Search Bar */}
+      {/* 1. Hero: Final Polish with Architectural Headline & Tactile Search Bar */}
       <section className="relative pt-24 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8 border-b border-stone-200/70 dark:border-stone-800/70 bg-gradient-to-b from-[#F9F9F7] via-surface-light to-surface-light dark:from-stone-900/40 dark:via-surface-dark dark:to-surface-dark overflow-hidden">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Refined Minimalist Trust Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             <span className="tracking-tight">Verified Campus Network • Paystack Escrow Protection</span>
           </div>
 
-          {/* Decisive Hero Headline: 76px Bold Contrast */}
+          {/* Confident, Distinctive Hero Headline: 76px Bold Contrast */}
           <h1 className="text-5xl sm:text-7xl lg:text-[76px] font-black tracking-[-0.045em] text-stone-950 dark:text-stone-50 leading-[1.02]">
             Trade safely on campus.
             <span className="block text-stone-400 dark:text-stone-500 font-semibold tracking-[-0.035em] mt-2 sm:mt-3">
@@ -85,14 +85,14 @@ export default function HomePage() {
             </span>
           </h1>
 
-          {/* Readable Subtitle */}
+          {/* Balanced, Readable Subtitle */}
           <p className="text-lg sm:text-xl text-stone-600 dark:text-stone-300 max-w-2xl mx-auto leading-relaxed font-normal">
             A trusted marketplace built for <strong className="text-stone-950 dark:text-stone-100 font-bold">{currentSchoolObj.name}</strong> students. Buy tech, order food, or book stylists directly from verified peers.
           </p>
 
           {/* Standout Search Command Bar with Solid Black Button */}
           <div className="max-w-2xl mx-auto pt-3 space-y-5">
-            <div className="flex items-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-[0_8px_32px_rgba(0,0,0,0.08),0_1px_3px_rgba(0,0,0,0.03)] p-2 focus-within:border-stone-400 focus-within:ring-4 focus-within:ring-stone-100 dark:focus-within:ring-stone-800 transition-all">
+            <div className="flex items-center bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/90 dark:border-stone-800 shadow-search p-2 focus-within:border-stone-400 focus-within:ring-4 focus-within:ring-stone-100 dark:focus-within:ring-stone-800 transition-all">
               <div className="pl-3.5 text-stone-400">
                 <Search className="w-4 h-4" />
               </div>
@@ -105,13 +105,13 @@ export default function HomePage() {
               />
               <Link
                 href={`/search?q=${encodeURIComponent(searchQuery)}`}
-                className="px-8 py-3.5 rounded-xl bg-stone-950 hover:bg-stone-850 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 text-sm font-bold tracking-tight shadow-[0_4px_14px_rgba(0,0,0,0.18)] active:scale-[0.98] transition-all shrink-0"
+                className="px-8 py-3.5 rounded-xl bg-stone-950 hover:bg-stone-850 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 text-sm font-bold tracking-tight shadow-button-primary active:scale-[0.98] transition-all shrink-0"
               >
                 Search
               </Link>
             </div>
 
-            {/* Tactile Campus Filter Chips */}
+            {/* Integrated Campus Switcher */}
             <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
               <span className="text-xs font-bold text-stone-400 mr-1.5 uppercase font-mono text-[10px] tracking-wider">Campus:</span>
               <div className="inline-flex flex-wrap items-center gap-1 p-1 rounded-full bg-stone-100/90 dark:bg-stone-800/90 border border-stone-200/60 dark:border-stone-700/60">
@@ -136,7 +136,7 @@ export default function HomePage() {
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
-        {/* 2. Categories with Tactile Depth */}
+        {/* 2. Categories: Tactile Minimalist Strip with Unified Shadow */}
         <section className="space-y-6">
           <div className="flex items-end justify-between">
             <div>
@@ -157,7 +157,7 @@ export default function HomePage() {
               <Link
                 key={cat.id}
                 href={`/search?category=${cat.slug}`}
-                className="p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-[0_2px_4px_rgba(0,0,0,0.02),0_6px_18px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_8px_rgba(0,0,0,0.03),0_14px_30px_rgba(0,0,0,0.07)] hover:-translate-y-1 transition-all duration-300 text-center group flex flex-col items-center justify-center gap-3"
+                className="p-5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-premium hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 text-center group flex flex-col items-center justify-center gap-3"
               >
                 <div className="w-11 h-11 rounded-xl bg-stone-50 dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60 flex items-center justify-center group-hover:scale-105 group-hover:bg-stone-100 group-hover:border-stone-300 transition-all duration-200">
                   {getCategoryIcon(cat.iconName)}
@@ -170,7 +170,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 3. Feed Section: Commanding Title & Dominant Product Cards */}
+        {/* 3. Feed Section: Dominant Product Cards & Segmented Filter Bar */}
         <section className="space-y-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pb-3 border-b border-stone-200/60 dark:border-stone-800">
             <div>
@@ -247,7 +247,7 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* 4. Verified Campus Founders / Sellers: Multi-Layer Shadow & High-End Craft */}
+        {/* 4. Verified Campus Founders / Sellers: Unified shadow-premium Language */}
         <section className="space-y-6">
           <div className="flex items-end justify-between">
             <div>
@@ -268,7 +268,7 @@ export default function HomePage() {
               <Link
                 key={brand.id}
                 href={`/brand/${brand.slug}`}
-                className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-[0_2px_4px_rgba(0,0,0,0.02),0_8px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_8px_rgba(0,0,0,0.03),0_16px_36px_rgba(0,0,0,0.09)] hover:-translate-y-1 transition-all duration-300 space-y-4 group flex flex-col justify-between"
+                className="p-6 rounded-2xl bg-white dark:bg-[#14151C] border border-stone-200/80 dark:border-stone-800/80 shadow-premium hover:shadow-premium-hover hover:border-stone-300 dark:hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 space-y-4 group flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   <div className="flex items-center gap-3.5">
@@ -300,10 +300,13 @@ export default function HomePage() {
                 </div>
 
                 <div className="pt-3 flex items-center justify-between text-xs text-stone-500 border-t border-stone-100 dark:border-stone-800/80">
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50/70 dark:bg-emerald-950/40 px-2.5 py-1 rounded-full border border-emerald-200/60 dark:border-emerald-800/60">
+                  {/* Refined Trust Score Pill */}
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-stone-700 dark:text-stone-300 bg-stone-50 dark:bg-stone-800/80 px-2.5 py-1 rounded-full border border-stone-200/60 dark:border-stone-700/60">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
                     {brand.trustScore}% Trust Score
                   </span>
+
+                  {/* Refined Storefront Link */}
                   <span className="font-bold text-stone-900 dark:text-stone-100 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
                     Storefront <ArrowRight className="w-3.5 h-3.5" />
                   </span>
@@ -313,8 +316,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 5. How Escrow Works: Institutional Banking Security */}
-        <section className="p-8 sm:p-14 rounded-3xl bg-stone-100/70 dark:bg-stone-900/50 border border-stone-200/80 dark:border-stone-800 space-y-10 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        {/* 5. How Escrow Works: Institutional Banking Security with Matching Shadow */}
+        <section className="p-8 sm:p-14 rounded-3xl bg-stone-100/70 dark:bg-stone-900/50 border border-stone-200/80 dark:border-stone-800 space-y-10 shadow-premium">
           <div className="max-w-xl mx-auto text-center space-y-2.5">
             <div className="w-9 h-9 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/60 flex items-center justify-center mx-auto text-emerald-700 dark:text-emerald-300 mb-2">
               <Lock className="w-4 h-4" />
@@ -331,7 +334,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-2">
-            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-[0_2px_4px_rgba(0,0,0,0.02),0_6px_18px_rgba(0,0,0,0.04)]">
+            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-premium">
               <span className="text-xs font-mono font-bold text-stone-400 tracking-widest bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">01</span>
               <h3 className="text-sm font-bold text-stone-950 dark:text-stone-50">Authorized in Escrow</h3>
               <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
@@ -339,7 +342,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-[0_2px_4px_rgba(0,0,0,0.02),0_6px_18px_rgba(0,0,0,0.04)]">
+            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-premium">
               <span className="text-xs font-mono font-bold text-stone-400 tracking-widest bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">02</span>
               <h3 className="text-sm font-bold text-stone-950 dark:text-stone-50">Campus Meetup</h3>
               <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
@@ -347,7 +350,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-[0_2px_4px_rgba(0,0,0,0.02),0_6px_18px_rgba(0,0,0,0.04)]">
+            <div className="space-y-3 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 shadow-premium">
               <span className="text-xs font-mono font-bold text-stone-400 tracking-widest bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">03</span>
               <h3 className="text-sm font-bold text-stone-950 dark:text-stone-50">Release Funds</h3>
               <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">

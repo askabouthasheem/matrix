@@ -20,7 +20,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
     : null;
 
   return (
-    <div className="group relative flex flex-col bg-white dark:bg-[#14151C] rounded-2xl border border-stone-200/80 dark:border-stone-800/80 shadow-[0_2px_4px_rgba(0,0,0,0.02),0_8px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_8px_rgba(0,0,0,0.03),0_16px_36px_rgba(0,0,0,0.09)] hover:border-stone-300 dark:hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden">
+    <div className="group relative flex flex-col bg-white dark:bg-[#14151C] rounded-2xl border border-stone-200/80 dark:border-stone-800/80 shadow-premium hover:shadow-premium-hover hover:border-stone-300 dark:hover:border-stone-700 hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden">
       {/* Product Image Frame */}
       <Link 
         href={`/listing/${listing.id}`} 
@@ -30,17 +30,17 @@ export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
           src={listing.images[0]}
           alt={listing.title}
           fill
-          className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+          className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 ease-out"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         />
 
         {/* Subtle inner top-edge vignette */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/[0.04] to-transparent pointer-events-none" />
 
-        {/* Refined "Pickup Today" Badge - Architectural & Minimal */}
+        {/* Elegant "Pickup Today" Badge - Architectural & Minimal */}
         {listing.isAvailableToday && (
           <div className="absolute top-3 left-3 z-10 pointer-events-none">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/95 dark:bg-stone-900/95 text-stone-800 dark:text-stone-200 text-[10px] font-semibold tracking-wider uppercase border border-stone-200/70 dark:border-stone-700/70 shadow-sm backdrop-blur-md">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/95 dark:bg-stone-900/95 text-stone-700 dark:text-stone-300 text-[10px] font-semibold tracking-wider uppercase border border-stone-200/60 dark:border-stone-700/60 shadow-xs backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
               Pickup today
             </span>
@@ -50,7 +50,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
         {/* Integrated Clean Discount Tag */}
         {discount && discount > 0 && (
           <div className="absolute bottom-3 left-3 z-10 pointer-events-none">
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-stone-950 dark:bg-stone-100 text-white dark:text-stone-950 font-mono text-[10.5px] font-bold tracking-tight shadow-sm">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-stone-950 dark:bg-stone-100 text-white dark:text-stone-950 font-mono text-[10.5px] font-bold tracking-tight shadow-xs">
               -{discount}%
             </span>
           </div>
@@ -63,7 +63,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
             e.stopPropagation();
             toggleWishlist(listing.id);
           }}
-          className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 dark:bg-stone-900/90 text-stone-400 hover:text-rose-500 active:scale-90 transition-all duration-150 shadow-sm backdrop-blur-md border border-stone-200/60 dark:border-stone-700/60"
+          className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/90 dark:bg-stone-900/90 text-stone-400 hover:text-rose-500 active:scale-90 transition-all duration-150 shadow-xs backdrop-blur-md border border-stone-200/60 dark:border-stone-700/60"
           aria-label="Add to wishlist"
         >
           <Heart className={`w-3.5 h-3.5 transition-colors duration-150 ${isWishlisted ? 'fill-rose-500 text-rose-500' : ''}`} />
@@ -71,7 +71,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
       </Link>
 
       {/* Card Body with Generous 20px Padding & Strong Price Hierarchy */}
-      <div className="p-5 sm:p-5 flex-1 flex flex-col justify-between gap-4">
+      <div className="p-5 flex-1 flex flex-col justify-between gap-4">
         <div className="space-y-2">
           {/* Seller Name & Campus Code */}
           <div className="flex items-center justify-between text-xs">
@@ -83,7 +83,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
             </span>
           </div>
 
-          {/* Card Title - Clear, Secondary to Price */}
+          {/* Card Title - Clean, Secondary to Price */}
           <Link href={`/listing/${listing.id}`} className="block">
             <h3 className="font-medium text-stone-900 dark:text-stone-100 text-[15px] leading-[1.38] line-clamp-2 group-hover:text-stone-600 dark:group-hover:text-stone-300 transition-colors duration-150">
               {listing.title}
