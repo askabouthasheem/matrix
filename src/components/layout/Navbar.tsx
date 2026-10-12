@@ -106,30 +106,34 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
       {/* Main Nav Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand & Campus */}
-        <div className="flex items-center gap-5">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-brand-900 dark:bg-stone-100 text-white dark:text-stone-900 flex items-center justify-center font-bold text-sm tracking-tight">
-              C
+        <div className="flex items-center gap-4 sm:gap-6">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-8.5 h-8.5 rounded-xl bg-stone-950 dark:bg-stone-50 text-white dark:text-stone-950 flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.15)] border border-stone-800/90 dark:border-stone-200 shrink-0 group-hover:scale-105 transition-transform duration-200">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 dark:text-emerald-600 stroke-[2.2]" />
             </div>
-            <span className="font-bold text-base sm:text-lg tracking-tight text-stone-900 dark:text-stone-100">
-              CampusHustle
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="font-extrabold text-base sm:text-lg tracking-[-0.03em] text-stone-950 dark:text-stone-50">
+                Campus<span className="text-stone-400 dark:text-stone-400 font-semibold">Hustle</span>
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            </div>
           </Link>
 
           {/* Campus Selector */}
           <div className="relative">
             <button
               onClick={() => setIsSchoolMenuOpen(!isSchoolMenuOpen)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-medium hover:bg-stone-200/70 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100/90 dark:bg-stone-800/90 text-stone-800 dark:text-stone-200 text-xs font-semibold hover:bg-stone-200/70 border border-stone-200/70 dark:border-stone-700/70 transition-all shadow-subtle active:scale-95"
             >
+              <Building2 className="w-3.5 h-3.5 text-stone-500 shrink-0" />
               <span>{activeSchoolObj.shortName}</span>
               <ChevronDown className="w-3 h-3 text-stone-400" />
             </button>
 
             {isSchoolMenuOpen && (
-              <div className="absolute left-0 mt-2 w-52 bg-white dark:bg-stone-900 rounded-xl shadow-lg border border-stone-200 dark:border-stone-800 py-1.5 z-50 animate-in fade-in duration-100">
-                <div className="px-3 py-1 text-[10px] font-semibold text-stone-400 uppercase tracking-wider">
-                  Campus
+              <div className="absolute left-0 mt-2 w-56 bg-white dark:bg-stone-900 rounded-2xl shadow-elevated border border-stone-200/80 dark:border-stone-800 py-1.5 z-50 animate-in fade-in duration-150">
+                <div className="px-3 py-1 text-[10px] font-bold text-stone-400 uppercase tracking-widest font-mono">
+                  Select Campus
                 </div>
                 {SCHOOLS.map(sch => (
                   <button
@@ -138,11 +142,14 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
                       setSelectedSchool(sch.shortName);
                       setIsSchoolMenuOpen(false);
                     }}
-                    className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors ${
-                      selectedSchool === sch.shortName ? 'font-semibold text-brand-900 dark:text-stone-100 bg-stone-50' : 'text-stone-600 dark:text-stone-300'
+                    className={`w-full text-left px-3.5 py-2 text-xs flex items-center justify-between hover:bg-stone-50 dark:hover:bg-stone-800/80 transition-colors ${
+                      selectedSchool === sch.shortName ? 'font-bold text-stone-950 dark:text-stone-100 bg-stone-50 dark:bg-stone-800/60' : 'text-stone-600 dark:text-stone-300 font-medium'
                     }`}
                   >
                     <span>{sch.name} ({sch.shortName})</span>
+                    {selectedSchool === sch.shortName && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    )}
                   </button>
                 ))}
               </div>
@@ -157,9 +164,9 @@ export const Navbar: React.FC<{ onOpenCart?: () => void }> = ({ onOpenCart }) =>
             placeholder="Search products or services..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 rounded-full bg-stone-100/80 dark:bg-stone-800 text-xs text-stone-900 dark:text-stone-100 placeholder:text-stone-400 border border-transparent focus:border-stone-300 dark:focus:border-stone-700 focus:bg-white focus:outline-none transition-all"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-stone-100/70 dark:bg-stone-800/70 text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 border border-stone-200/70 dark:border-stone-700/60 focus:border-stone-400 dark:focus:border-stone-600 focus:bg-white dark:focus:bg-stone-800 focus:outline-none focus:shadow-subtle transition-all font-medium"
           />
-          <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+          <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
         </form>
 
         {/* Role Navigation & Actions */}

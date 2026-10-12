@@ -20,8 +20,8 @@ const config: Config = {
           600: '#4D538E',
           700: '#3A3F71',
           800: '#2A2E55',
-          900: '#14172C', // Deep refined ink navy
-          950: '#0B0C18',
+          900: '#0F111A', // Tailored obsidian ink
+          950: '#08090E',
         },
         accent: {
           50: '#FFF7ED',
@@ -36,18 +36,18 @@ const config: Config = {
           900: '#7C2D12',
         },
         surface: {
-          light: '#FBFBFA', // Warm linen off-white
+          light: '#FAFAF8', // Warm bone off-white
           card: '#FFFFFF',
-          dark: '#111114',
-          darkCard: '#18181D',
-          border: '#E8E8E6',
-          darkBorder: '#292930'
+          dark: '#101114',
+          darkCard: '#16171D',
+          border: '#E8E8E5',
+          darkBorder: '#282930'
         }
       },
       borderRadius: {
-        'card': '16px',
-        'button': '10px',
-        'input': '12px',
+        'card': '18px',
+        'button': '12px',
+        'input': '14px',
         'badge': '9999px',
       },
       fontFamily: {
@@ -58,14 +58,18 @@ const config: Config = {
         'tighter': '-0.04em',
         'tight': '-0.025em',
         'display': '-0.035em',
+        'eyebrow': '0.08em',
       },
       boxShadow: {
-        'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02)',
-        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 6px 16px -2px rgba(0, 0, 0, 0.03)',
-        'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 16px 28px -4px rgba(0, 0, 0, 0.05)',
-        'elevated': '0 10px 30px -10px rgba(0, 0, 0, 0.07), 0 2px 6px -2px rgba(0, 0, 0, 0.03)',
-        'modal': '0 25px 60px -15px rgba(0, 0, 0, 0.18)',
-        'nav': '0 1px 2px 0 rgba(0, 0, 0, 0.03)',
+        'subtle': '0 1px 2px 0 rgba(15, 17, 23, 0.03), 0 1px 3px 0 rgba(15, 17, 23, 0.02)',
+        'tactile': '0 1px 2px 0 rgba(15, 17, 23, 0.04), 0 2px 6px -1px rgba(15, 17, 23, 0.03)',
+        'card': '0 1px 3px 0 rgba(15, 17, 23, 0.03), 0 4px 14px -2px rgba(15, 17, 23, 0.03)',
+        'card-hover': '0 4px 12px -2px rgba(15, 17, 23, 0.04), 0 20px 32px -6px rgba(15, 17, 23, 0.07)',
+        'search': '0 8px 30px -4px rgba(15, 17, 23, 0.06), 0 1px 2px rgba(15, 17, 23, 0.03)',
+        'button-primary': '0 1px 2px 0 rgba(0, 0, 0, 0.12), 0 4px 12px 0 rgba(0, 0, 0, 0.08)',
+        'elevated': '0 12px 36px -10px rgba(15, 17, 23, 0.08), 0 2px 6px -2px rgba(15, 17, 23, 0.03)',
+        'modal': '0 25px 60px -15px rgba(0, 0, 0, 0.2)',
+        'nav': '0 1px 2px 0 rgba(15, 17, 23, 0.03)',
       }
     },
   },

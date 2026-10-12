@@ -47,7 +47,7 @@ export default function ListingDetailPage() {
   const currentImage = listing.images[selectedImageIndex] || listing.images[0] || DEFAULT_FALLBACK;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Back Link */}
       <div>
         <button
@@ -63,7 +63,7 @@ export default function ListingDetailPage() {
         {/* Left Column: Media & Specifications */}
         <div className="lg:col-span-7 space-y-6">
           {/* Main Large Image */}
-          <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-stone-100 dark:bg-stone-800 border border-stone-200/70 dark:border-stone-800 shadow-subtle">
+          <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-stone-100 dark:bg-stone-800 border border-stone-200/80 dark:border-stone-800 shadow-card">
             <SafeImage
               src={currentImage}
               alt={listing.title}
@@ -75,8 +75,11 @@ export default function ListingDetailPage() {
             {/* Quiet Overlay Badges */}
             <div className="absolute top-3.5 left-3.5 flex items-center gap-2 z-10">
               {listing.isAvailableToday && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 dark:bg-stone-900/95 text-stone-900 dark:text-stone-100 text-[11px] font-semibold tracking-wide uppercase shadow-sm backdrop-blur-md border border-stone-200/50">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-stone-950/85 dark:bg-stone-900/90 text-white text-[10.5px] font-semibold tracking-wider uppercase backdrop-blur-sm">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                  </span>
                   Pickup today
                 </span>
               )}
@@ -84,7 +87,7 @@ export default function ListingDetailPage() {
 
             <button
               onClick={() => toggleWishlist(listing.id)}
-              className="absolute top-3.5 right-3.5 z-10 p-2.5 rounded-full bg-white/90 dark:bg-stone-900/90 text-stone-600 dark:text-stone-300 hover:text-rose-500 active:scale-95 transition-all shadow-sm backdrop-blur-md"
+              className="absolute top-3.5 right-3.5 z-10 p-2.5 rounded-xl bg-white/90 dark:bg-stone-900/90 text-stone-500 dark:text-stone-300 hover:text-rose-500 active:scale-95 transition-all shadow-tactile backdrop-blur-md border border-stone-200/50 dark:border-stone-700/50"
               aria-label="Wishlist"
             >
               <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-rose-500 text-rose-500' : ''}`} />
@@ -111,8 +114,8 @@ export default function ListingDetailPage() {
           )}
 
           {/* Description Section */}
-          <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 space-y-3">
-            <h2 className="text-xs font-bold text-stone-400 uppercase tracking-wider font-mono">
+          <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-3 shadow-tactile">
+            <h2 className="text-xs font-bold text-stone-400 uppercase tracking-widest font-mono">
               About this item
             </h2>
             <p className="text-sm text-stone-700 dark:text-stone-300 leading-relaxed whitespace-pre-line font-normal">
@@ -123,13 +126,15 @@ export default function ListingDetailPage() {
 
         {/* Right Column: Clean Purchase Card & Seller Info */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="p-7 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 space-y-6 shadow-subtle">
+          <div className="p-7 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-6 shadow-card">
             {/* Meta */}
             <div className="flex items-center justify-between text-xs text-stone-500">
-              <span className="flex items-center gap-1 font-medium">
+              <span className="flex items-center gap-1 font-semibold text-stone-700 dark:text-stone-300">
                 <MapPin className="w-3.5 h-3.5 text-stone-400" /> {listing.schoolShortName} Campus
               </span>
-              <span className="font-medium text-stone-600 dark:text-stone-400">{listing.categoryName}</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300">
+                {listing.categoryName}
+              </span>
             </div>
 
             {/* Title */}
@@ -138,28 +143,30 @@ export default function ListingDetailPage() {
             </h1>
 
             {/* Price Area */}
-            <div className="pt-1">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold text-stone-950 dark:text-stone-50 tracking-tight">
+            <div className="pt-1 space-y-3">
+              <div className="flex items-baseline gap-2.5">
+                <span className="text-3xl sm:text-4xl font-extrabold text-stone-950 dark:text-stone-50 tracking-[-0.025em] tabular-nums">
                   ₦{listing.price.toLocaleString()}
                 </span>
                 {listing.originalPrice && (
-                  <span className="text-sm text-stone-400 line-through font-normal">
+                  <span className="text-sm text-stone-400 line-through font-normal tabular-nums">
                     ₦{listing.originalPrice.toLocaleString()}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-stone-500 mt-1.5 flex items-center gap-1.5 font-medium">
-                <Lock className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Held in Paystack escrow until pickup confirmation</span>
-              </p>
+
+              {/* Escrow Guarantee Callout */}
+              <div className="flex items-center gap-2 text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 px-3 py-2 rounded-xl font-medium">
+                <Lock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                <span>Held in Paystack Escrow until you inspect & confirm pickup</span>
+              </div>
             </div>
 
             {/* Primary Action Button */}
             <div className="space-y-3 pt-2">
               <button
                 onClick={() => setIsCheckoutModalOpen(true)}
-                className="w-full py-3.5 rounded-xl bg-stone-950 hover:bg-stone-800 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-semibold text-sm transition-all shadow-sm active:scale-[0.98]"
+                className="w-full py-4 rounded-xl bg-stone-950 hover:bg-stone-850 dark:bg-stone-100 dark:hover:bg-white text-white dark:text-stone-950 font-semibold text-sm tracking-tight transition-all shadow-button-primary active:scale-[0.98]"
               >
                 Pay via Escrow (₦{listing.price.toLocaleString()})
               </button>
@@ -167,7 +174,7 @@ export default function ListingDetailPage() {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => addToCart(listing)}
-                  className="py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all"
+                  className="py-3 rounded-xl border border-stone-200/90 dark:border-stone-700/80 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-tactile"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>Add to cart</span>
@@ -176,7 +183,7 @@ export default function ListingDetailPage() {
                 <Link
                   href={`/chat?listingId=${listing.id}`}
                   onClick={() => startConversation(listing)}
-                  className="py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all"
+                  className="py-3 rounded-xl border border-stone-200/90 dark:border-stone-700/80 hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-tactile"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Chat seller</span>
@@ -190,7 +197,7 @@ export default function ListingDetailPage() {
                 href={`https://wa.me/2348123456789?text=${encodeURIComponent(`Hi ${listing.brandName}, I'm interested in "${listing.title}" on CampusHustle.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 flex items-center gap-1"
+                className="text-stone-500 hover:text-stone-900 dark:hover:text-stone-200 flex items-center gap-1 font-medium"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>WhatsApp catalog fallback</span>
@@ -203,14 +210,14 @@ export default function ListingDetailPage() {
           </div>
 
           {/* Seller Profile Card: Calm & High-Trust */}
-          <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 space-y-4 shadow-subtle">
+          <div className="p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-4 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-stone-400">Seller</span>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-stone-400 font-bold">Seller</span>
               <VerifiedBadge schoolShortName={listing.schoolShortName} size="sm" />
             </div>
 
             <div className="flex items-center gap-3.5">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-stone-200">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-stone-200/70 shadow-xs">
                 <SafeImage src={listing.brandLogo} alt={listing.brandName} fill className="object-cover" />
               </div>
               <div className="min-w-0">
@@ -218,23 +225,23 @@ export default function ListingDetailPage() {
                   {listing.brandName}
                 </Link>
                 <div className="flex items-center gap-2 text-xs text-stone-500 mt-0.5">
-                  <span className="flex items-center gap-1 font-medium">
+                  <span className="flex items-center gap-1 font-semibold text-stone-700 dark:text-stone-300">
                     <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> {listing.rating}
                   </span>
-                  <span>•</span>
+                  <span className="text-stone-300">·</span>
                   <span>{listing.brandTrustScore}% trust score</span>
                 </div>
               </div>
             </div>
 
-            <div className="text-xs text-stone-500 flex items-center gap-1.5 pt-1">
+            <div className="text-xs text-stone-500 flex items-center gap-1.5 pt-1 font-medium">
               <Clock className="w-3.5 h-3.5 text-stone-400" />
               <span>Replies {listing.brandResponseTime}</span>
             </div>
 
             <Link
               href={`/brand/${listing.brandId}`}
-              className="block w-full text-center py-2 text-xs font-semibold text-stone-800 dark:text-stone-200 hover:text-stone-950 dark:hover:text-white border-t border-stone-100 dark:border-stone-800 pt-3"
+              className="block w-full text-center py-2.5 text-xs font-semibold text-stone-800 dark:text-stone-200 hover:text-stone-950 dark:hover:text-white border-t border-stone-100 dark:border-stone-800 pt-3"
             >
               View seller storefront →
             </Link>
@@ -243,7 +250,7 @@ export default function ListingDetailPage() {
       </div>
 
       {/* Reviews Section */}
-      <div className="p-8 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/70 dark:border-stone-800 space-y-6 shadow-subtle">
+      <div className="p-8 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800 space-y-6 shadow-tactile">
         <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-4">
           <h2 className="text-lg font-bold text-stone-950 dark:text-stone-50 tracking-tight">
             Student Reviews ({REVIEWS.length})
@@ -255,12 +262,12 @@ export default function ListingDetailPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {REVIEWS.map(rev => (
-            <div key={rev.id} className="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/50 space-y-2 border border-stone-200/40 dark:border-stone-700/40">
+            <div key={rev.id} className="p-4 rounded-xl bg-stone-50 dark:bg-stone-800/50 space-y-2 border border-stone-200/50 dark:border-stone-700/50">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-stone-900 dark:text-stone-100">
                   {rev.buyerName} ({rev.buyerSchool})
                 </span>
-                <span className="text-stone-400 text-[11px]">{rev.createdAt}</span>
+                <span className="text-stone-400 text-[11px] font-mono">{rev.createdAt}</span>
               </div>
               <p className="text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
                 "{rev.comment}"

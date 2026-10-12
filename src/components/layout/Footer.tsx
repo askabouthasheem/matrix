@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { ShieldCheck } from 'lucide-react';
 import { SCHOOLS } from '@/lib/mockData';
 
 export const Footer: React.FC = () => {
@@ -9,12 +10,12 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-stone-200/60 dark:border-stone-800">
           {/* Brand Info */}
           <div className="space-y-3 md:col-span-1">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-bold flex items-center justify-center text-xs">
-                C
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-stone-950 dark:bg-stone-50 flex items-center justify-center shadow-sm border border-stone-800/80 dark:border-stone-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-600 stroke-[2.2]" />
               </div>
-              <span className="text-base font-bold text-stone-900 dark:text-stone-100 tracking-tight">
-                CampusHustle
+              <span className="text-base font-extrabold text-stone-900 dark:text-stone-100 tracking-[-0.03em]">
+                Campus<span className="text-stone-400 font-semibold">Hustle</span>
               </span>
             </div>
             <p className="text-xs text-stone-500 leading-relaxed font-normal">
